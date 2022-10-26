@@ -1,0 +1,17 @@
+@import "_colors";
+@import "_mixins";
+
+:host {
+  @include titleAndHost;
+}
+
+form {
+  @include formStyle;
+  button {
+    margin-top: 10px;
+  }
+}
+
+.containerTextMessage {
+  @include styleMessage;
+}

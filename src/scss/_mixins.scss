@@ -1,0 +1,71 @@
+@mixin letterTitle {
+  color: $colorRed;
+  font-weight: bold;
+  font-family: "Lobster", cursive;
+  text-align: center;
+}
+
+@mixin btnGeneral {
+  background-color: $colorSkyBlue;
+  font-weight: bold;
+  color: $colorRed;
+}
+
+@mixin titleAndHost {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: $colorSkyBlueLigth;
+  h1 {
+    @include letterTitle;
+    font-size: xx-large;
+  }
+}
+
+@mixin formStyle {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 20px 20px 10px;
+  border-radius: 8px;
+  div {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    p {
+      text-align: center;
+      margin-top: 10px;
+      font-size: small;
+      font-weight: bold;
+      width: fit-content;
+      height: fit-content;
+    }
+    p:hover {
+      color: $colorPurple;
+    }
+    button {
+      width: 100%;
+    }
+  }
+  ::ng-deep .mat-form-field .mat-form-field-outline {
+    width: 100% !important;
+    background-color: white !important;
+  }
+}
+
+@mixin styleMessage {
+  font-size: large;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 20%;
+  margin-bottom: -10%;
+  @media (min-width: 1000px) {
+    font-size: large;
+    margin-top: 10%;
+  }
+}
