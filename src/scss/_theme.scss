@@ -1,0 +1,31 @@
+@use '@angular/material' as mat;
+@use 'palette-theme' as p;
+
+
+$custom-typography-config: mat.define-typography-config(
+  $subheading-2: mat.define-typography-level(48px, 1, 500),
+  $subheading-1: mat.define-typography-level(34px, 1, 400),
+  $body-1: mat.define-typography-level(16px, 1, 400),
+  $body-2: mat.define-typography-level(14px, 1, 400),
+  $caption: mat.define-typography-level(12px, 1, 400),
+  $button: mat.define-typography-level(14px, 1, 500),
+);
+
+@include mat.core($custom-typography-config);
+
+$custom-primary: mat.define-palette(p.$primary-color);
+$custom-accent: mat.define-palette(p.$accent-color);
+$custom-warn: mat.define-palette(p.$warn-color);
+
+$my-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $custom-primary,
+      accent: $custom-accent,
+      warn: $custom-warn,
+    )
+  )
+);
+
+@include mat.all-component-themes($my-theme);
+
