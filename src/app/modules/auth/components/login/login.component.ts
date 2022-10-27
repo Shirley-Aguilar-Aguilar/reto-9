@@ -8,10 +8,11 @@ import {
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { AuthService } from '../../../../core/services/auth.service';
-import { UserLogin, UserDataResp } from '../../../../shared/interfaces/user';
+import { UserLogin } from '../../../../shared/interfaces/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../reducers/index';
-import * as fromActions from '../../blocks/auth.actions';
+import * as fromActions from '../../store/auth.actions';
+import { AuthActions } from '../../store/action-types';
 
 @Component({
   selector: 'app-login',
@@ -41,6 +42,7 @@ export class LoginComponent {
     });
   }
 
+  // cambiar por pipe
   getControl(controlName: string): AbstractControl {
     return this.form.get(controlName) as AbstractControl;
   }
@@ -70,9 +72,8 @@ export class LoginComponent {
     localStorage.setItem('token', response);
   }
 
-
-
    login(user: UserLogin): void {
+
     this.authService.login(user)
     .pipe(
       tap(user => {

@@ -2,14 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { UserData, UserLogin, UserDataResp } from '../../shared/interfaces/user';
+import { UserLogin, User } from '../../shared/interfaces/user';
 
 @Injectable()
 
 export class AuthService {
 
   host:string = environment.urlApi;
-  _auth: UserDataResp;
+  _auth: User;
   _refreshToken:string;
 
   constructor(
@@ -20,8 +20,8 @@ export class AuthService {
    return {...this._auth}
   } */
 
-  login(data:UserLogin):Observable<UserDataResp> {
-    return this.http.post<UserDataResp>(this.host +"/v1/users/login", data)
+  login(data:UserLogin):Observable<User> {
+    return this.http.post<User>(this.host +"/v1/users/login", data)
             .pipe(
               tap(auth => this._auth = auth)
             )

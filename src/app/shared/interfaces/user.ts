@@ -1,16 +1,14 @@
 export interface UserLogin {
-  data:UserData;
+  data:{
+    email: string;
+    password: string;
+  }
 }
 
-export interface UserData {
-  email: string;
-  password: string;
-}
-
-export interface UserDataResp {
+export interface User {
   data: {
     token: string;
-    user: UserDataResp;
+    user: UserResp;
   };
 }
 

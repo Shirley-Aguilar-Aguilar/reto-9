@@ -8,7 +8,6 @@ const routes: Routes = [
     path: '',
     component: ContentHomeComponent,
     title: 'Home',
-    // children: [{ path: '', component: ContentHomeComponent }],
   },
 ];
 

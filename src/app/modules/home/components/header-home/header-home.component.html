@@ -1,0 +1,25 @@
+<header>
+  <mat-toolbar>
+    <h1>Tech Shop</h1>
+    <div class="action" *ngIf="dataProfile">
+      <div class="profile" (click)="menuToggle(menu)">
+        {{ initialsFullName }}
+      </div>
+
+      <div class="menu" #menu>
+        <div class="card-info">
+          <h3>cccccccccccc</h3>
+          <p>cccccccccccc</p>
+          <p>ccccccccccccc</p>
+        </div>
+        <ul>
+          <li>
+            <mat-icon class="logo">exit_to_app</mat-icon>
+            <a (click)="logout()">Log out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </mat-toolbar>
+</header>
+

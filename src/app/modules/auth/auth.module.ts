@@ -18,10 +18,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 import { StoreModule } from "@ngrx/store";
-import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { AuthGuard } from '../../core/guards/auth.guard';
-import * as fromAuth from './blocks/reducers';
+import * as fromAuth from './store/reducers';
 import { AuthService } from '../../core/services/auth.service';
+import { authReducer } from './store/reducers';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,7 @@ import { AuthService } from '../../core/services/auth.service';
     MatButtonModule,
     MatSnackBarModule,
 
-    StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.reducers, {  }),
+    StoreModule.forFeature(fromAuth.authFeatureKey, authReducer),
 
   ],
   providers: [AuthService]
