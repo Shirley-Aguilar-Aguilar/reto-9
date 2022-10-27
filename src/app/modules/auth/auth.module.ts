@@ -19,8 +19,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
-import { AuthGuard } from './shared/auth.guard';
-import * as fromAuth from './shared/reducers';
+import { AuthGuard } from '../../core/guards/auth.guard';
+import * as fromAuth from './blocks/reducers';
 import { AuthService } from '../../core/services/auth.service';
 
 @NgModule({

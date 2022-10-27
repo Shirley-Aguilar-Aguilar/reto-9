@@ -8,9 +8,10 @@ import {
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { AuthService } from '../../../../core/services/auth.service';
-import { UserLogin } from '../../../../shared/interfaces/user';
+import { UserLogin, UserDataResp } from '../../../../shared/interfaces/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../reducers/index';
+import * as fromActions from '../../blocks/auth.actions';
 
 @Component({
   selector: 'app-login',
@@ -69,12 +70,14 @@ export class LoginComponent {
     localStorage.setItem('token', response);
   }
 
-   login(data: UserLogin): void {
-    this.authService.login(data)
+
+
+   login(user: UserLogin): void {
+    this.authService.login(user)
     .pipe(
-      tap(data => {
-        console.log(data);
-       // this.store.dispatch()
+      tap(user => {
+        console.log(user);
+       this.store.dispatch(fromActions.login({user}))
       })
     )
     .subscribe({
