@@ -27,6 +27,8 @@ export const initialAuthState: AuthState = {
 export const authReducer = createReducer(
   initialAuthState,
   on(AuthActions.login, (state, action): AuthState => {
+    console.log("calling login reducer")
+    // debugger;
     return {
       user: action.user
     }

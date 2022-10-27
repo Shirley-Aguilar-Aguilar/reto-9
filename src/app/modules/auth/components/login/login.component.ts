@@ -78,7 +78,10 @@ export class LoginComponent {
     .pipe(
       tap(user => {
         console.log(user);
-       this.store.dispatch(fromActions.login({user}))
+        const newLoginAction = fromActions.login({user});
+        console.log("new login action:", newLoginAction);
+       this.store.dispatch(newLoginAction)
+       debugger;
       })
     )
     .subscribe({
