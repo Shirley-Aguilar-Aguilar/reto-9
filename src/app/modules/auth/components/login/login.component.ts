@@ -5,10 +5,12 @@ import {
   FormGroup,
   AbstractControl,
 } from '@angular/forms';
-// import { UserToLogin } from 'src/app/shared/interfaces/user';
-// import { UserToken } from '../../../../shared/interfaces/user';
 import { Router } from '@angular/router';
-//import { AuthService } from 'src/app/core/services/auth.service';
+import { tap } from 'rxjs';
+import { AuthService } from '../../../../core/services/auth.service';
+import { UserLogin } from '../../../../shared/interfaces/user';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../../reducers/index';
 
 @Component({
   selector: 'app-login',
@@ -23,8 +25,10 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-   // private authService: AuthService,
-    private router: Router
+    private authService: AuthService,
+    private router: Router,
+    // eslint-disable-next-line @ngrx/no-typed-global-store
+    private store: Store<AppState>
   ) {
     this.buildForm();
   }
@@ -61,16 +65,23 @@ export class LoginComponent {
     }
   }
 
-  storeToken(response: any): void {
-    localStorage.setItem('accessToken', response.accessToken);
-    localStorage.setItem('refreshToken', response.refreshToken);
+  storeToken(response: string): void {
+    localStorage.setItem('token', response);
   }
 
-/*   login(data: UserToLogin): void {
-    this.authService.postLogin(data).subscribe({
+   login(data: UserLogin): void {
+    this.authService.login(data)
+    .pipe(
+      tap(data => {
+        console.log(data);
+       // this.store.dispatch()
+      })
+    )
+    .subscribe({
       next: (response) => {
         this.error = '';
-        this.storeToken(response);
+        console.log(response)
+        this.storeToken(response.data.token);
         this.router.navigate(['home']);
         this.loading = false;
       },
@@ -80,13 +91,16 @@ export class LoginComponent {
         this.loading = false;
       },
     });
-  } */
+  }
 
   submit(): void {
     this.loading = true;
     this.error = '';
     if (this.form.valid) {
-     // this.login(this.form.value);
+      const data = {
+        data: this.form.value,
+      }
+     this.login(data);
     }
   }
 }

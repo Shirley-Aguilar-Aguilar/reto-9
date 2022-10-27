@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChargingMessageComponent } from './components/charging-message/charging-message.component';
 import { FirstPageComponent } from './components/first-page/first-page.component';
@@ -14,6 +14,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+
+import { StoreModule } from "@ngrx/store";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { AuthGuard } from './shared/auth.guard';
+import * as fromAuth from './shared/reducers';
+import { AuthService } from '../../core/services/auth.service';
 
 @NgModule({
   declarations: [
@@ -34,10 +42,22 @@ import { MatButtonModule } from '@angular/material/button';
     MatProgressBarModule,
     MatTooltipModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSnackBarModule,
 
+    StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.reducers, {  }),
 
-
-  ]
+  ],
+  providers: [AuthService]
 })
-export class AuthModule { }
+export class AuthModule {
+/*   static forRoot(): ModuleWithProviders<AuthModule> {
+    return {
+        ngModule: AuthModule,
+        providers: [
+        //  AuthService,
+            AuthGuard
+        ]
+    }
+} */
+}

@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  urlApi:'https://trainee-program-api-staging.applaudostudios.com/api'
 };
