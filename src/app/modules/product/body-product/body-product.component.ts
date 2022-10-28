@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { ProductService } from 'src/app/core/services/product.service';
-import { Product } from 'src/app/shared/interfaces/product';
+import { Category } from 'src/app/shared/interfaces/product';
 
 
 @Component({
@@ -12,7 +12,7 @@ import { Product } from 'src/app/shared/interfaces/product';
 })
 export class BodyProductComponent implements OnInit {
 
-  categories: Product[];
+  categories: Category[];
   textInput = new FormControl('',[Validators.required]);
 
   constructor(private product: ProductService) { }
@@ -39,5 +39,7 @@ export class BodyProductComponent implements OnInit {
       }
     })
   }
+
+
 
 }

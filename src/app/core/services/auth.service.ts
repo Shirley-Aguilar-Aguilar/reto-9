@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -27,23 +27,16 @@ export class AuthService {
             )
   }
 
-/*   logout():void {
-   localStorage.removeItem('accessToken');
-   localStorage.removeItem('refreshToken');
-  } */
-
-/*   getRefreshToken():{refreshToken: string}{
-    const refreshTokenFromStorage =  localStorage.getItem('refreshToken');
-    if(refreshTokenFromStorage){
-      this._refreshToken = refreshTokenFromStorage;
-    }else {
-      this._refreshToken = ""
+  getToken() {
+    let token = '';
+    const tokenFromStorage = localStorage.getItem('token');
+    if (tokenFromStorage) {
+    token = tokenFromStorage;
+    } else {
+    token = '';
     }
-    return {'refreshToken':this._refreshToken};
+    return new HttpHeaders({ Authorization: `Bearer ${token}` });
   }
 
-  refreshToken():Observable<UserToken>{
-    const refreshToken = this.getRefreshToken();
-    return this.http.post<UserToken>(this.host +"/auth/refresh", refreshToken);
-  } */
+
 }

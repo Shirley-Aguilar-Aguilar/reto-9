@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { ProductService } from '../../../../core/services/product.service';
-import { Product } from '../../../../shared/interfaces/product';
+import { Category } from '../../../../shared/interfaces/product';
 
 @Component({
   selector: 'app-content-home',
@@ -10,7 +10,7 @@ import { Product } from '../../../../shared/interfaces/product';
   styleUrls: ['./content-home.component.scss']
 })
 export class ContentHomeComponent implements OnInit {
-  categories: Product[];
+  categories: Category[];
   textInput = new FormControl('',[Validators.required]);
 
   constructor(private product: ProductService) { }

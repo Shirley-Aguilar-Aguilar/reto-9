@@ -5,6 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProductService } from 'src/app/core/services/product.service';
 import { BodyProductRoutingModule } from './body-product-routing.module';
 import { TemplateProductComponent } from './template-product/template-product.component';
+import { StoreModule } from '@ngrx/store';
+import * as fromProduct from './store/reducers';
 
 
 
@@ -16,7 +18,8 @@ import { TemplateProductComponent } from './template-product/template-product.co
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    BodyProductRoutingModule
+    BodyProductRoutingModule,
+    StoreModule.forFeature(fromProduct.productFeatureKey, fromProduct.productReducer),
 
   ],
   providers: [ProductService]
