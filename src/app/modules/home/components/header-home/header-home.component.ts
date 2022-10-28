@@ -6,7 +6,7 @@ import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
 import { map, Observable } from 'rxjs';
 import { isLoggedIn, isLoggedOut } from 'src/app/modules/auth/store/auth.selectors';
-import { logout } from 'src/app/modules/auth/store/auth.actions';
+import { login, logout } from 'src/app/modules/auth/store/auth.actions';
 
 @Component({
   selector: 'app-header-home',
@@ -31,8 +31,12 @@ export class HeaderHomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getUserId();
-   // this.getProfileUser();
+   const userProfile = localStorage.getItem('user');
+   if(userProfile){
+      this.store.dispatch(login({user:JSON.parse(userProfile)}))
+   }
+
+
    this.store.subscribe(state => console.log("store value:", state))
 
    this.isLoggedIn$ = this.store
