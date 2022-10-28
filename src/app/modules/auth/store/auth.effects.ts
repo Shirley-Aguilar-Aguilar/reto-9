@@ -22,7 +22,9 @@ export class AuthEffects {
   .pipe(
     ofType(AuthActions.logout),
     tap(action => {
+      console.log("removiendo")
       localStorage.removeItem('user')
+      localStorage.removeItem('token')
       this.router.navigateByUrl('/auth/login')
     })
   ),

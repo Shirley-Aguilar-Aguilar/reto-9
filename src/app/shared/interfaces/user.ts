@@ -15,5 +15,5 @@ export interface User {
 export interface UserResp {
   id: number;
   email: string;
-  password: string;
+  name: string;
 }

@@ -11,7 +11,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { UserLogin } from '../../../../shared/interfaces/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../reducers/index';
-import * as fromActions from '../../store/auth.actions';
+// import * as fromActions from '../../store/auth.actions';
 import { AuthActions } from '../../store/action-types';
 
 @Component({
@@ -80,7 +80,7 @@ export class LoginComponent {
     .pipe(
       tap(user => {
         console.log(user);
-       this.store.dispatch(fromActions.login({user}))
+       this.store.dispatch(AuthActions.login({user}))
       })
     )
     .subscribe({

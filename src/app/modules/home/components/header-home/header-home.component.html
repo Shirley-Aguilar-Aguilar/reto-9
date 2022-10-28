@@ -1,16 +1,15 @@
 <header>
   <mat-toolbar>
     <h1>Tech Shop</h1>
-    <div class="action" *ngIf="true">
+    <div class="action" *ngIf="user">
       <div class="profile" (click)="menuToggle(menu)">
-        usuariodefault
+        {{initialsName}}
       </div>
 
       <div class="menu" #menu>
         <div class="card-info">
-          <h3>cccccccccccc</h3>
-          <p>cccccccccccc</p>
-          <p>ccccccccccccc</p>
+          <h3>{{user.name}}</h3>
+          <p>{{user.email}}</p>
         </div>
         <ul>
           <li>

@@ -1,0 +1,22 @@
+@import "_colors";
+@import "_mixins";
+
+
+input,
+select{
+  padding: 10px 10px;
+  background-color: $backgroundColorGray;
+  border: 1px solid $borderColor;
+  border-radius: 0.375rem;
+}
+
+input:focus {
+  @include styleOutline;
+}
+select:focus {
+  @include styleOutline;
+}
+img {
+  height: 100px;
+  width:100px;
+}

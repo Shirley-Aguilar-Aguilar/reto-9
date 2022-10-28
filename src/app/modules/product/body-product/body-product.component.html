@@ -1,1 +1,20 @@
-<p>body-product works!</p>
+<div>
+  <ng-container *ngIf="true">
+    <label for="categorie">Categories</label>
+    <select
+      id="categorie"
+    >
+      <option *ngFor="let categorie of categories" [value]="categorie.name">
+        {{ categorie.name }}
+      </option>
+    </select>
+  </ng-container>
+
+  <label for="search">Search products</label>
+  <input name="search" type="text" [formControl]="textInput">
+
+  <img src="assets/img/logo-cart.jpg">
+</div>
+
+
+<app-template-product></app-template-product>

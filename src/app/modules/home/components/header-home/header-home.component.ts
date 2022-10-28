@@ -1,7 +1,7 @@
 /* eslint-disable @ngrx/no-typed-global-store */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from '../../../../shared/interfaces/user';
+import { User, UserResp } from '../../../../shared/interfaces/user';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
 import { map, Observable } from 'rxjs';
@@ -16,9 +16,9 @@ import { login, logout } from 'src/app/modules/auth/store/auth.actions';
 export class HeaderHomeComponent implements OnInit {
   isLoggedIn$: Observable<boolean>;
   isLoggedOut$: Observable<boolean>
+  user: UserResp;
+  initialsName: string;
 
-  dataProfile: User;
- // nameObject: Name;
   initialsFullName: string;
   idUser: string;
   error:string;
@@ -36,8 +36,9 @@ export class HeaderHomeComponent implements OnInit {
       this.store.dispatch(login({user:JSON.parse(userProfile)}))
    }
 
+   this.getUser();
 
-   this.store.subscribe(state => console.log("store value:", state))
+   // this.store.subscribe(state => console.log("store value:", state))
 
    this.isLoggedIn$ = this.store
    .pipe(
@@ -51,47 +52,25 @@ export class HeaderHomeComponent implements OnInit {
 
   }
 
-/*   getUserId() {
-    this.activateRoute.paramMap.subscribe((response:any) => {
-      this.idUser = <string>response.get('id');
-    });
+  getUser(){
+    const profile = localStorage.getItem('user')
+    if(profile){
+      this.user = JSON.parse(profile).data.user;
+      this.transformName(this.user.name)
+    }
+  }
 
 
-  } */
+  transformName(name: string): void {
+    this.initialsName = (name.charAt(0)).toUpperCase();
+  }
 
-/*   transformDataToShow(profile: UserProfile): void {
-    this.nameObject = JSON.parse(profile.name);
-    this.initialsFullName = (
-      this.nameObject.firstname.charAt(0) +
-      '.' +
-      this.nameObject.lastname.charAt(0)
-    ).toUpperCase();
-  } */
-
-/*   getProfileUser() {
-    this.UserService.getProfileUser(this.idUser).subscribe({
-      next: (profile) => {
-        this.error = '';
-        this.dataProfile = profile;
-        this.transformDataToShow(profile);
-      },
-      error: (error) => {
-        this.error = error;
-      },
-    });
-  } */
 
   menuToggle(div: HTMLDivElement) {
     div.classList.toggle('active');
   }
 
-/*   logout() {
-    this.AuthService.logout();
-    this.router.navigate(['/']);
-  } */
-
   logout(){
-    //localStorage.removeItem('token');
      this.store.dispatch(logout());
      this.router.navigate(['/']);
   }

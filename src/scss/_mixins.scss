@@ -69,3 +69,11 @@
     margin-top: 10%;
   }
 }
+
+
+@mixin styleOutline {
+  outline-width: 3px;
+  outline-style: solid;
+  outline-color: lightblue;
+  box-shadow: 2px 2px 2px rgb(196, 233, 245);
+}
