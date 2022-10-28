@@ -13,6 +13,7 @@ import { environment } from '../environments/environment';
 import { AuthModule } from './modules/auth/auth.module';
 import { reducers, metaReducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule, routerReducer, RouterState } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [
@@ -29,11 +30,24 @@ import { EffectsModule } from '@ngrx/effects';
       maxAge: 25
     }),
 
-    StoreModule.forRoot(reducers, { metaReducers }),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability:true,
+        strictActionImmutability:true,
+        strictActionSerializability: true,
+        strictStateSerializability:true
+      }
+    }),
 
-    ]),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+
+    EffectsModule.forRoot([]),
+
+    StoreRouterConnectingModule.forRoot({
+       stateKey: 'router',
+       routerState: RouterState.Minimal
+    })
 
   ],
   providers: [],

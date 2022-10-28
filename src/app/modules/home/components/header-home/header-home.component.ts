@@ -51,13 +51,13 @@ export class HeaderHomeComponent implements OnInit {
 
   }
 
-  getUserId() {
+/*   getUserId() {
     this.activateRoute.paramMap.subscribe((response:any) => {
       this.idUser = <string>response.get('id');
     });
 
 
-  }
+  } */
 
 /*   transformDataToShow(profile: UserProfile): void {
     this.nameObject = JSON.parse(profile.name);

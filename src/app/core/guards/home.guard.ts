@@ -23,8 +23,11 @@ export class HomeGuard implements CanLoad {
     segments: UrlSegment[]
   ): Observable<boolean> | Promise<boolean> | boolean {
     const token = localStorage.getItem('token');
-
-    if(isLoggedIn) {
+    if (token) {
+      const jwtHelper: JwtHelperService = new JwtHelperService();
+      return jwtHelper.isTokenExpired(token) ? false : true;
+    }
+    else if(isLoggedIn) {
       return this.store
       .pipe(
          select(isLoggedIn),
@@ -34,9 +37,6 @@ export class HomeGuard implements CanLoad {
            }
          })
       )
-    } else if (token) {
-      const jwtHelper: JwtHelperService = new JwtHelperService();
-      return jwtHelper.isTokenExpired(token) ? false : true;
     }
     return false;
 
