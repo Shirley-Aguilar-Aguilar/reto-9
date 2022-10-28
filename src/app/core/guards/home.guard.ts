@@ -6,6 +6,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
 import { isLoggedIn } from 'src/app/modules/auth/store/auth.selectors';
 import { AppState } from 'src/app/reducers';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 @Injectable({
@@ -21,6 +22,8 @@ export class HomeGuard implements CanLoad {
     route: Route,
     segments: UrlSegment[]
   ): Observable<boolean> | Promise<boolean> | boolean {
+    const token = localStorage.getItem('token');
+
     if(isLoggedIn) {
       return this.store
       .pipe(
@@ -31,6 +34,9 @@ export class HomeGuard implements CanLoad {
            }
          })
       )
+    } else if (token) {
+      const jwtHelper: JwtHelperService = new JwtHelperService();
+      return jwtHelper.isTokenExpired(token) ? false : true;
     }
     return false;
 
