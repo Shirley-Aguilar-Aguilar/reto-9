@@ -12,6 +12,7 @@ import { miReducer } from './app.reducer';
 import { environment } from '../environments/environment';
 import { AuthModule } from './modules/auth/auth.module';
 import { reducers, metaReducers } from './reducers';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,9 @@ import { reducers, metaReducers } from './reducers';
 
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([
+
+    ]),
 
   ],
   providers: [],

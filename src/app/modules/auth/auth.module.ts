@@ -22,6 +22,8 @@ import { AuthGuard } from '../../core/guards/auth.guard';
 import * as fromAuth from './store/reducers';
 import { AuthService } from '../../core/services/auth.service';
 import { authReducer } from './store/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './store/auth.effects';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import { authReducer } from './store/reducers';
     MatSnackBarModule,
 
     StoreModule.forFeature(fromAuth.authFeatureKey, authReducer),
+    EffectsModule.forFeature([AuthEffects]),
 
   ],
   providers: [AuthService]
