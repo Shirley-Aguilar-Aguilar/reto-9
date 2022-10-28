@@ -1,6 +1,12 @@
+/* eslint-disable @ngrx/no-typed-global-store */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../../../shared/interfaces/user';
+import { Store, select } from '@ngrx/store';
+import { AppState } from 'src/app/reducers';
+import { map, Observable } from 'rxjs';
+import { isLoggedIn, isLoggedOut } from 'src/app/modules/auth/store/auth.selectors';
+import { logout } from 'src/app/modules/auth/store/auth.actions';
 
 @Component({
   selector: 'app-header-home',
@@ -8,6 +14,8 @@ import { User } from '../../../../shared/interfaces/user';
   styleUrls: ['./header-home.component.scss']
 })
 export class HeaderHomeComponent implements OnInit {
+  isLoggedIn$: Observable<boolean>;
+  isLoggedOut$: Observable<boolean>
 
   dataProfile: User;
  // nameObject: Name;
@@ -17,18 +25,34 @@ export class HeaderHomeComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private activateRoute: ActivatedRoute
+    private activateRoute: ActivatedRoute,
+    private store: Store<AppState>,
+
   ) {}
 
   ngOnInit(): void {
     this.getUserId();
    // this.getProfileUser();
+   this.store.subscribe(state => console.log("store value:", state))
+
+   this.isLoggedIn$ = this.store
+   .pipe(
+      select(isLoggedIn)
+   );
+
+   this. isLoggedOut$ = this.store
+   .pipe(
+      select(isLoggedOut)
+   );
+
   }
 
   getUserId() {
     this.activateRoute.paramMap.subscribe((response:any) => {
       this.idUser = <string>response.get('id');
     });
+
+
   }
 
 /*   transformDataToShow(profile: UserProfile): void {
@@ -63,7 +87,9 @@ export class HeaderHomeComponent implements OnInit {
   } */
 
   logout(){
-
+    //localStorage.removeItem('token');
+     this.store.dispatch(logout());
+     this.router.navigate(['/']);
   }
 
 }

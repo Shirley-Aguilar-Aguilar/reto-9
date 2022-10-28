@@ -27,10 +27,10 @@ export class AuthService {
             )
   }
 
-  logout():void {
+/*   logout():void {
    localStorage.removeItem('accessToken');
    localStorage.removeItem('refreshToken');
-  }
+  } */
 
 /*   getRefreshToken():{refreshToken: string}{
     const refreshTokenFromStorage =  localStorage.getItem('refreshToken');

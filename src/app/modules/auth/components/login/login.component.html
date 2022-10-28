@@ -7,7 +7,7 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
   <mat-form-field appearance="outline">
     <mat-label>Enter your email</mat-label>
-    <input matInput placeholder="user@example.com" formControlName="email" />
+    <input matInput placeholder="user@example.com" formControlName="email"   [ngModel] = "email"/>
     <mat-error *ngIf="getControl('email').invalid">{{
       getErrorMessage()
     }}</mat-error>
@@ -20,6 +20,7 @@
       [type]="hide ? 'password' : 'text'"
       formControlName="password"
       autocomplete="on"
+      [ngModel] = "password"
     />
     <button
       type="button"

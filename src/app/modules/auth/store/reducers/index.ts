@@ -14,31 +14,32 @@ import { AuthActions } from '../action-types';
 export const authFeatureKey = 'auth';
 
 export interface AuthState {
-  user: (User| undefined),
+  user: (User | undefined),
 
 }
 export const initialAuthState: AuthState = {
   user:undefined
 }
 
-/* export const reducers: ActionReducerMap<AuthState> = {
 
-}; */
 export const authReducer = createReducer(
   initialAuthState,
   on(AuthActions.login, (state, action): AuthState => {
     console.log("calling login reducer")
-    // debugger;
     return {
       user: action.user
     }
+  }),
+
+  on(AuthActions.logout, (state, action):AuthState => {
+    return {
+      user: undefined
+    }
   })
+
+
 )
 
-/* function authReducer(state, action): authState {
 
-} */
-
-//export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];
 
 

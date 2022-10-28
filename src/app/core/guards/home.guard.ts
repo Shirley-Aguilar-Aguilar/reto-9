@@ -1,8 +1,12 @@
+/* eslint-disable @ngrx/select-style */
+/* eslint-disable @ngrx/no-typed-global-store */
 import { Injectable } from '@angular/core';
 import { CanLoad, Route, UrlSegment, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-//import { AuthService } from '../services/auth.service';
-// import { JwtHelperService } from '@auth0/angular-jwt';
+import { select, Store } from '@ngrx/store';
+import { Observable, tap } from 'rxjs';
+import { isLoggedIn } from 'src/app/modules/auth/store/auth.selectors';
+import { AppState } from 'src/app/reducers';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,28 +14,26 @@ import { Observable } from 'rxjs';
 export class HomeGuard implements CanLoad {
   constructor(
     private router: Router,
+    private store: Store<AppState>
   ) {}
-/*   constructor(
-    private router: Router,
-    private authService: AuthService
-  ) {} */
 
   canLoad(
     route: Route,
     segments: UrlSegment[]
   ): Observable<boolean> | Promise<boolean> | boolean {
-/*     const token = localStorage.getItem('accessToken');
-    if (this.authService.auth.accessToken) {
-      return true;
-    } else if (token) {
-      const jwtHelper: JwtHelperService = new JwtHelperService();
-      return jwtHelper.isTokenExpired(token) ? false : true;
-    } else {
-      this.redirect();
-      return false;
-    } */
+    if(isLoggedIn) {
+      return this.store
+      .pipe(
+         select(isLoggedIn),
+         tap(loggedIn => {
+           if(!loggedIn){
+            this.redirect();
+           }
+         })
+      )
+    }
+    return false;
 
-    return true;
   }
 
 

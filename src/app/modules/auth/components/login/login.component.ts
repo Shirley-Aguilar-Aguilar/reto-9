@@ -20,6 +20,8 @@ import { AuthActions } from '../../store/action-types';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
+  email = "trainee4@example.com";
+  password = "Trainee$4";
   hide = true;
   form: FormGroup;
   loading: boolean = false;
@@ -78,10 +80,7 @@ export class LoginComponent {
     .pipe(
       tap(user => {
         console.log(user);
-        const newLoginAction = fromActions.login({user});
-        console.log("new login action:", newLoginAction);
-       this.store.dispatch(newLoginAction)
-       debugger;
+       this.store.dispatch(fromActions.login({user}))
       })
     )
     .subscribe({
