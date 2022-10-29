@@ -29,8 +29,13 @@ export interface Product {
   }
 }
 
+export interface IdsForLike{
+  user_id_eq:number;
+  product_id_eq:number;
+}
+
 export interface Likes {
-  data:[]
+  data:Like[];
 }
 export interface Like {
   id: number,
@@ -38,4 +43,17 @@ export interface Like {
   product_id: number,
   kind: string
 }
+
+export interface LikeBodyPost {
+ data: {
+  product_id: number,
+  kind: string
+ }
+}
+
+export interface LikeBodyResp {
+  data: Like
+}
+
+
 

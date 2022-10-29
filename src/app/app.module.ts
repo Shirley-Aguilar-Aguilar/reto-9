@@ -15,6 +15,7 @@ import { reducers, metaReducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule, routerReducer, RouterState } from '@ngrx/router-store';
 import { ErrorInterceptorService } from './core/services/error-interceptor.service';
+import { AuthService } from './core/services/auth.service';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { ErrorInterceptorService } from './core/services/error-interceptor.servi
 
   ],
   providers: [
+    AuthService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,

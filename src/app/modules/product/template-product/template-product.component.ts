@@ -1,6 +1,6 @@
 /* eslint-disable @ngrx/no-typed-global-store */
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../reducers/index';
@@ -17,11 +17,17 @@ import { ProductService } from '../../../core/services/product.service';
 export class TemplateProductComponent implements OnInit {
   newProduct:Product;
   count = 0;
+  userId: number;
+  dislike = true;
+
   @Input() set product(value:Product){
+    console.log("value", value)
     this.newProduct = value;
     this.count= value.likes_up_count
   }
-  dislike = true;
+
+  @Output() updateProductsOfService: EventEmitter<boolean>= new EventEmitter<boolean>()
+
 
 
   constructor(
@@ -30,11 +36,8 @@ export class TemplateProductComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const data = {
-      "user_id_eq": 6,
-      "product_id_eq": 12,
-    }
-    this.productService.getLikes(3,25)
+
+/*     this.productService.getLikes(3,25)
     .subscribe({
       next:(data) => {
         console.log(data)
@@ -43,18 +46,59 @@ export class TemplateProductComponent implements OnInit {
         console.log("likes----", error)
       }
 
-    })
+    }) */
+
+    this.getIdUser()
   }
 
-  addCount(){
+  getIdUser(){
+    let user= localStorage.getItem('user');
+    let userResp;
+    if(user){
+      userResp = JSON.parse(user);
+      this.userId = userResp.data.user.id;
+    }else {
+     user = ''
+    }
+  }
+
+  addCount(idProduct:number){
+    const data = {
+      user_id_eq:this.userId,
+      product_id_eq:idProduct,
+    }
+    this.store.dispatch(ProductAction.loadLikesProduct({idsPerProduct:data}))
+
     this.dislike = !this.dislike;
     if(this.dislike){
       !this.dislike;
       this.count --;
+      const like = {
+        data: {
+          product_id: idProduct,
+          kind: 'down'
+         }
+      }
+
+
+     this.store.dispatch(ProductAction.dislikeProduct({bodyLikePerProduct: like}))
+
     }else {
+      console.log("ennn else")
       this.count ++;
+      const like = {
+        data: {
+          product_id: idProduct,
+          kind: 'up'
+         }
+      }
+      this.store.dispatch(ProductAction.likeProduct({bodyLikePerProduct: like}))
+
     }
-    this.store.dispatch(ProductAction.loadLikeProduct())
+    setTimeout(() => {
+      this.updateProductsOfService.emit(true);
+    }, 500)
+
     console.log(this.count)
   }
 }

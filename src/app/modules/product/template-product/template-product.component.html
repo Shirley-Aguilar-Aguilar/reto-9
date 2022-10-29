@@ -3,7 +3,7 @@
   <p> Category: {{ newProduct.category.name }}</p>
   <p> Description: {{ newProduct.description }} </p>
 
-  <button  (click)=" addCount()">
+  <button  (click)=" addCount(newProduct.id)">
     <mat-icon>{{ dislike ? "favorite_border" : "favorite" }}</mat-icon>
     {{count}}
   </button>

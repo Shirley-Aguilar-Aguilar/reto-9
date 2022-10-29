@@ -10,7 +10,6 @@ import * as fromProduct from './store/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductEffects } from './store/product.effects';
 import { MatIconModule } from '@angular/material/icon';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 
@@ -24,12 +23,12 @@ import { AuthService } from 'src/app/core/services/auth.service';
     CommonModule,
     ReactiveFormsModule,
     BodyProductRoutingModule,
-    HttpClientModule,
 
     MatIconModule,
 
 
     StoreModule.forFeature(fromProduct.productFeatureKey, fromProduct.productReducer),
+    StoreModule.forFeature(fromProduct.likesFeatureKey, fromProduct.likesReducer),
     EffectsModule.forFeature([ProductEffects]),
   ],
   providers: [ProductService

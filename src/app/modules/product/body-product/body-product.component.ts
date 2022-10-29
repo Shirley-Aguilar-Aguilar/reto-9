@@ -54,6 +54,11 @@ export class BodyProductComponent implements OnInit {
     })
   }
 
-
+  updateProductsOfService(result:boolean){
+    console.log("event------------for update")
+    console.log(result);
+   this.store.dispatch(ProductAction.loadProducts())
+   this.products$ = this.store.select(productSelector.selectProducts);
+  }
 
 }

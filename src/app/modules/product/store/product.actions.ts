@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { Product, Products } from 'src/app/shared/interfaces/product';
+import { Like, LikeBodyPost, LikeBodyResp, Product, Products } from 'src/app/shared/interfaces/product';
+import { IdsForLike, Likes } from '../../../shared/interfaces/product';
 
 export const loadProducts = createAction(
   "[Product Page] Load Products",
@@ -10,11 +11,34 @@ export const loadProductsSuccess = createAction(
   props<{products: Product[]}>()
 )
 
-export const loadLikeProduct = createAction(
+export const loadLikesProduct = createAction(
   "[Product Page] Load Like Product",
+  props<{idsPerProduct: IdsForLike}>()
 )
 
 export const loadLikeProductSuccess = createAction(
   "[Product Page] Load Like Product Success",
-  props<{product: Product}>()
+  props<{likesPerProduct: Like}>()
 )
+
+export const likeProduct = createAction(
+  "[Product Page] Add Like Product",
+  props<{bodyLikePerProduct: LikeBodyPost}>()
+)
+
+export const likeProductSuccess = createAction(
+  "[Product Page] Add Like Product Success",
+  props<{likesPerProductResp: LikeBodyResp}>()
+)
+
+export const dislikeProduct = createAction(
+  "[Product Page] Delete Like Product",
+  props<{bodyLikePerProduct: LikeBodyPost}>()
+)
+
+export const dislikeProductSuccess = createAction(
+  "[Product Page] Delete Like Product Success",
+  props<{likesPerProductResp: LikeBodyResp}>()
+)
+
+

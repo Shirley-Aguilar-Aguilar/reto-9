@@ -7,7 +7,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ProductService } from 'src/app/core/services/product.service';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -20,7 +19,6 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     AppRoutingHomeModule,
     ReactiveFormsModule,
-    HttpClientModule,
 
 
     MatIconModule,

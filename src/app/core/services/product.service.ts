@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,  HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { CategorytResp, Products } from '../../shared/interfaces/product';
+import { CategorytResp, IdsForLike, Products, LikeBodyPost, LikeBodyResp } from '../../shared/interfaces/product';
 
 
 @Injectable()
@@ -24,23 +24,14 @@ export class ProductService {
     return this.http.get<Products>(this.host +'/products' ,{params:{include:`image_attachment.blob,category`}})
   }
 
-  getToken() {
-    let token = '';
-    const tokenFromStorage = localStorage.getItem('token');
-    if (tokenFromStorage) {
-    token = tokenFromStorage;
-    } else {
-    token = '';
-    }
-    return new HttpHeaders({ Authorization: `Bearer ${token}` });
-  }
 
-  getLikes(idUser:number, idProduct:number):Observable<any> {
-    const token = this.getToken()
-    return this.http.get<any>(this.host + '/likes'+ `?[filter][user_id_eq]=${idUser}&[filter][product_id_eq]=${idProduct}`, {headers:token});
+  getLikes(data:IdsForLike):Observable<any> {
+    return this.http.get(this.host + '/likes'+ `?[filter][user_id_eq]=${data['user_id_eq']}&[filter][product_id_eq]=${data['product_id_eq']}` );
   }
 //{{url}}/likes?[filter][user_id_eq]=3&[filter][product_id_eq]=25
-
+  postLike(data:LikeBodyPost):Observable<LikeBodyResp>{
+    return this.http.post<LikeBodyResp>(this.host + '/likes', data)
+  }
 
 
 }
