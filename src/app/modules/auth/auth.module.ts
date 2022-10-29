@@ -37,7 +37,6 @@ import { AuthEffects } from './store/auth.effects';
     ReactiveFormsModule,
     SharedModule,
 
-
     MatFormFieldModule,
     MatIconModule,
     MatProgressSpinnerModule,

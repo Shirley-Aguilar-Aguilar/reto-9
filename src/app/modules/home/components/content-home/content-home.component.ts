@@ -29,7 +29,7 @@ export class ContentHomeComponent implements OnInit {
     this.product.getCategories()
     .subscribe({
       next: (data) => {
-         console.log(data.data);
+         // console.log(data.data);
          this.categories = data.data;
       },
       error: (error) => {

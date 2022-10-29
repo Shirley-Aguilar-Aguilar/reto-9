@@ -17,4 +17,4 @@
 </div>
 
 
-<app-template-product></app-template-product>
+<app-template-product [product] = "product" *ngFor="let product of products$|async"></app-template-product>

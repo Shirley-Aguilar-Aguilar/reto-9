@@ -7,6 +7,9 @@ import { BodyProductRoutingModule } from './body-product-routing.module';
 import { TemplateProductComponent } from './template-product/template-product.component';
 import { StoreModule } from '@ngrx/store';
 import * as fromProduct from './store/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { ProductEffects } from './store/product.effects';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -19,8 +22,12 @@ import * as fromProduct from './store/reducers';
     CommonModule,
     ReactiveFormsModule,
     BodyProductRoutingModule,
-    StoreModule.forFeature(fromProduct.productFeatureKey, fromProduct.productReducer),
 
+    MatIconModule,
+
+
+    StoreModule.forFeature(fromProduct.productFeatureKey, fromProduct.productReducer),
+    EffectsModule.forFeature([ProductEffects]),
   ],
   providers: [ProductService]
 })

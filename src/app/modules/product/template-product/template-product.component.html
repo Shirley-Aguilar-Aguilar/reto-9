@@ -1,7 +1,11 @@
-<div *ngFor="let product of products">
-  <h3>{{product.name}}</h3>
-  <p> Category: {{product.category.name}}</p>
+<div >
+  <h3>{{ newProduct.name }}</h3>
+  <p> Category: {{ newProduct.category.name }}</p>
+  <p> Description: {{ newProduct.description }} </p>
 
+  <button  (click)=" addCount()">
+    <mat-icon>{{ dislike ? "favorite_border" : "favorite" }}</mat-icon>
+    {{count}}
+  </button>
 
- <!--  <img [src] ="product.image.url"> -->
 </div>

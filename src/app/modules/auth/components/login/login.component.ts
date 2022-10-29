@@ -44,7 +44,6 @@ export class LoginComponent {
     });
   }
 
-  // cambiar por pipe
   getControl(controlName: string): AbstractControl {
     return this.form.get(controlName) as AbstractControl;
   }

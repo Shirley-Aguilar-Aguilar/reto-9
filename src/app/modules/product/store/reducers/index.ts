@@ -9,23 +9,29 @@ import {
   on
 } from '@ngrx/store';
 import { Product } from 'src/app/shared/interfaces/product';
+import { ProductAction } from '../product-action-types';
 
 
-export const productFeatureKey = 'product';
+export const productFeatureKey = 'products';
 
 export interface ProductState {
-  product: (Product|undefined)
+  products: Product[]
 }
 
-export const initialProductState: ProductState = {
-  product:undefined
+export const initialProductsState: ProductState = {
+  products:[]
 }
 
 //export const reducers: ActionReducerMap<ProductState> = {};
 //export const metaReducers: MetaReducer<ProductState>[] = !environment.production ? [] : [];
 
 export const productReducer = createReducer(
-  initialProductState,
-  //on()
+  initialProductsState,
+  on(ProductAction.loadProductsSuccess, (state, action):ProductState => {
+    return {
+      ...state,
+      products: action.products
+    }
+  })
 
 )
