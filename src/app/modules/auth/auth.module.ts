@@ -25,6 +25,7 @@ import { authReducer } from './store/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './store/auth.effects';
 
+
 @NgModule({
   declarations: [
     ChargingMessageComponent,
@@ -45,6 +46,7 @@ import { AuthEffects } from './store/auth.effects';
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
+
 
     StoreModule.forFeature(fromAuth.authFeatureKey, authReducer),
     EffectsModule.forFeature([AuthEffects]),

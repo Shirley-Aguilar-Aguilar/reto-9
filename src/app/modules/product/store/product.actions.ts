@@ -9,3 +9,12 @@ export const loadProductsSuccess = createAction(
   "[Product Page] Load Products Success",
   props<{products: Product[]}>()
 )
+
+export const loadLikeProduct = createAction(
+  "[Product Page] Load Like Product",
+)
+
+export const loadLikeProductSuccess = createAction(
+  "[Product Page] Load Like Product Success",
+  props<{product: Product}>()
+)

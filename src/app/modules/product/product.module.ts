@@ -10,6 +10,8 @@ import * as fromProduct from './store/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductEffects } from './store/product.effects';
 import { MatIconModule } from '@angular/material/icon';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 
 
@@ -22,6 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
     CommonModule,
     ReactiveFormsModule,
     BodyProductRoutingModule,
+    HttpClientModule,
 
     MatIconModule,
 
@@ -29,6 +32,8 @@ import { MatIconModule } from '@angular/material/icon';
     StoreModule.forFeature(fromProduct.productFeatureKey, fromProduct.productReducer),
     EffectsModule.forFeature([ProductEffects]),
   ],
-  providers: [ProductService]
+  providers: [ProductService
+
+]
 })
 export class ProductModule { }

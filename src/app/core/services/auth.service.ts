@@ -21,7 +21,7 @@ export class AuthService {
   } */
 
   login(data:UserLogin):Observable<User> {
-    return this.http.post<User>(this.host +"/v1/users/login", data)
+    return this.http.post<User>(this.host +"/users/login", data)
             .pipe(
               tap(auth => this._auth = auth)
             )

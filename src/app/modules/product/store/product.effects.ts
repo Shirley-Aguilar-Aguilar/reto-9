@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ProductAction } from "./product-action-types";
 import { ProductService } from '../../../core/services/product.service';
 import { catchError } from 'rxjs/operators';
+import { loadLikeProduct } from './product.actions';
 
 
 @Injectable()
@@ -22,7 +23,20 @@ export class ProductEffects {
           )
         )
      )
-   )
+   );
+
+   loadLikes$ = createEffect(() =>
+   this.actions$
+    .pipe(
+       ofType(ProductAction.loadLikeProduct),
+       mergeMap(() => this.productService.getProducts()
+         .pipe(
+           map(products =>  ProductAction.loadProductsSuccess({products:products.data})),
+           catchError(() => EMPTY)
+         )
+       )
+    )
+  )
 
 
    constructor(

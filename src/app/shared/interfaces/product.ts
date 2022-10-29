@@ -28,3 +28,14 @@ export interface Product {
     slug: string;
   }
 }
+
+export interface Likes {
+  data:[]
+}
+export interface Like {
+  id: number,
+  user_id: number,
+  product_id: number,
+  kind: string
+}
+

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import { StoreModule } from "@ngrx/store";
@@ -14,6 +14,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { reducers, metaReducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule, routerReducer, RouterState } from '@ngrx/router-store';
+import { ErrorInterceptorService } from './core/services/error-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,13 @@ import { StoreRouterConnectingModule, routerReducer, RouterState } from '@ngrx/r
     })
 
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
