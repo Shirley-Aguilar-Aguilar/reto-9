@@ -10,6 +10,9 @@ import * as fromProduct from './store/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductEffects } from './store/product.effects';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [BodyProductComponent, TemplateProductComponent],
@@ -20,6 +23,9 @@ import { MatIconModule } from '@angular/material/icon';
     FormsModule,
 
     MatIconModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
 
     StoreModule.forFeature(
       fromProduct.productFeatureKey,

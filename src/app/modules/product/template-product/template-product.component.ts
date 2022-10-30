@@ -1,12 +1,12 @@
 /* eslint-disable @ngrx/no-typed-global-store */
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../reducers/index';
 import { Product } from 'src/app/shared/interfaces/product';
 import { ProductAction } from '../store/product-action-types';
-import * as productSelector from '../store/product.selectors'
+import * as productSelector from '../store/product.selectors';
 import { ProductService } from '../../../core/services/product.service';
 import { Like } from '../../../shared/interfaces/product';
 import { ConditionalExpr } from '@angular/compiler';
@@ -14,82 +14,89 @@ import { ConditionalExpr } from '@angular/compiler';
 @Component({
   selector: 'app-template-product',
   templateUrl: './template-product.component.html',
-  styleUrls: ['./template-product.component.scss']
+  styleUrls: ['./template-product.component.scss'],
 })
 export class TemplateProductComponent implements OnInit {
-  newProduct:Product;
+  newProduct: Product;
   count = 0;
+  dislikeInitial: boolean;
   dislike = true;
-  likesPerProduct$:Observable<Like[]>;
+  likesPerProduct$: Observable<Like>;
 
-  @Input() set product(value:Product){
+  @Input() set product(value: Product) {
     this.newProduct = value;
-    this.count= value.likes_up_count
+    this.count = value.likes_up_count;
   }
 
-  @Output() updateProductsOfService: EventEmitter<boolean>= new EventEmitter<boolean>()
-
-
-
-  constructor(
-    private store: Store<AppState>,
-    private productService:ProductService
-  ) { }
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.getIdUser();
-
+    this.getLikesOfUser();
   }
 
-  getIdUser(){
-    let user= localStorage.getItem('user');
-    let userResp;
-    if(user){
-      userResp = JSON.parse(user);
-      //this.userId = userResp.data.user.id;
-      return userResp.data.user.id;
-    }else {
-     return ''
-    }
+  getIdUser() {
+    let user = localStorage.getItem('user');
+    return user ? JSON.parse(user).data.user.id : '';
   }
 
-  addCount(idProduct:number){
+  getLikesOfUser() {
+    // this.likesPerProduct$ = this.store.select(productSelector.selectLikesByUser);
+    //this.likesPerProduct$.pipe();
+    /*     this.store.select(productSelector.selectLikesByUser).pipe(
+      map((result) => {
+        result.forEach((like) => {
+          if (like.product_id === this.newProduct.id) {
+            this.likesPerProduct$ = like;
+
+          }
+          return result;
+        });
+      })
+    ); */
+  }
+
+  getPayloadLike(idProduct: number, kind: string) {
+    return {
+      data: {
+        product_id: idProduct,
+        kind: kind,
+      },
+    };
+  }
+
+  getLikesProduct(idProduct: number) {
     const data = {
-      user_id_eq:this.getIdUser(),
-      product_id_eq:idProduct,
-    }
-    this.store.dispatch(ProductAction.loadLikesProduct({idsPerProduct:data}))
-
-    this.dislike = !this.dislike;
-    if(this.dislike){
-      !this.dislike;
-      this.count --;
-      const like = {
-        data: {
-          product_id: idProduct,
-          kind: 'down'
-         }
-      }
-
-
-     this.store.dispatch(ProductAction.dislikeProduct({bodyLikePerProduct: like}))
-
-    }else {
-      console.log("ennn else")
-      this.count ++;
-      const like = {
-        data: {
-          product_id: idProduct,
-          kind: 'up'
-         }
-      }
-      this.store.dispatch(ProductAction.likeProduct({bodyLikePerProduct: like}))
-
-    }
-    setTimeout(() => {
-      this.updateProductsOfService.emit(true);
-    }, 500)
-
-    console.log(this.count)
+      user_id_eq: this.getIdUser(),
+      product_id_eq: idProduct,
+    };
+    this.store.dispatch(
+      ProductAction.loadLikesProduct({ idsPerProduct: data })
+    );
   }
+
+  addCount(idProduct: number) {
+    this.getLikesProduct(idProduct);
+    this.dislike = !this.dislike;
+    if (this.dislike) {
+      !this.dislike;
+      this.count--;
+      const like = this.getPayloadLike(idProduct, 'down');
+      this.store.dispatch(
+        ProductAction.dislikeProduct({ bodyLikePerProduct: like })
+      );
+    } else {
+      this.count++;
+      const like = this.getPayloadLike(idProduct, 'up');
+      this.store.dispatch(
+        ProductAction.likeProduct({ bodyLikePerProduct: like })
+      );
+    }
+  }
+
+  isDislike() {
+    return this.dislike ? 'material-icons-outlined' : '';
+  }
+
+  saveProduct(product: Product) {}
 }

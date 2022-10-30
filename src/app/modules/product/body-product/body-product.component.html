@@ -6,25 +6,23 @@
       [(ngModel)]="categorySelected"
       name="category"
       (change)="filterByCategory()"
-
       #value
     >
-      <option *ngFor="let category of categories" [ngValue]="category" >
+      <option *ngFor="let category of categories" [ngValue]="category">
         {{ category.name }}
       </option>
-      <option [ngValue]="{slug:''}">All products</option>
+      <option [ngValue]="{ slug: '' }">All products</option>
     </select>
   </ng-container>
 
   <label for="search">Search products</label>
-  <input name="search" type="text" [formControl]="textInput">
+  <input name="search" type="text" [formControl]="textInput" />
 
-  <img src="assets/img/logo-cart.jpg">
+  <img src="assets/img/logo-cart.jpg" />
 </div>
 
-
 <app-template-product
-[product] = "product" *ngFor="let product of products$|async"
-
+  [product]="product"
+  *ngFor="let product of products$ | async"
 >
 </app-template-product>

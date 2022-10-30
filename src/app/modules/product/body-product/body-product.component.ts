@@ -37,8 +37,6 @@ export class BodyProductComponent implements OnInit {
     this.getCategories();
     this.getProductsToShow();
 
-    //debounce
-
     this.textInput.valueChanges
       .pipe(
         debounceTime(700),
