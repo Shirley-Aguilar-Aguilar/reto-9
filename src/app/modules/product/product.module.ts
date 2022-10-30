@@ -29,6 +29,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 
     StoreModule.forFeature(fromProduct.productFeatureKey, fromProduct.productReducer),
     StoreModule.forFeature(fromProduct.likesFeatureKey, fromProduct.likesReducer),
+    StoreModule.forFeature(fromProduct.likesByUserFeatureKey, fromProduct.likesByUserReducer),
     EffectsModule.forFeature([ProductEffects]),
   ],
   providers: [ProductService

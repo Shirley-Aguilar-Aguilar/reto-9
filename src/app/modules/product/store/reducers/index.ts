@@ -15,12 +15,16 @@ import { ProductAction } from '../product-action-types';
 
 export const productFeatureKey = 'products';
 export const likesFeatureKey = 'likes';
+export const likesByUserFeatureKey = 'likesByUser';
 
 export interface ProductState {
   products: Product[]
 }
 export interface LikesState {
   likes: Like;
+}
+export interface LikesStateByUser {
+  likesByUser: Like[];
 }
 
 export const initialProductsState: ProductState = {
@@ -34,9 +38,10 @@ export const initialLikesState: LikesState = {
     product_id: 0,
     kind: ''
   }
-
 }
-
+export const initialLikesStateByUser: LikesStateByUser = {
+  likesByUser:[]
+}
 //export const reducers: ActionReducerMap<ProductState> = {};
 //export const metaReducers: MetaReducer<ProductState>[] = !environment.production ? [] : [];
 
@@ -72,7 +77,17 @@ export const likesReducer = createReducer(
       ...state,
       likes: action.likesPerProductResp.data
     }
-  })
+  }),
+)
 
+export const likesByUserReducer = createReducer(
+  initialLikesStateByUser,
+  on(ProductAction.loadLikesByUserSuccess, (state, action):LikesStateByUser => {
+
+    return {
+      ...state,
+      likesByUser: action.productsWithLike
+    }
+  }),
 )
 

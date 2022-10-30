@@ -11,6 +11,16 @@ export const loadProductsSuccess = createAction(
   props<{products: Product[]}>()
 )
 
+export const loadLikesByUser = createAction(
+  "[Product Page] Load Likes By User",
+  props<{id: number}>()
+)
+
+export const loadLikesByUserSuccess = createAction(
+  "[Product Page] Load Likes By User Success",
+  props<{productsWithLike: Like[]}>()
+)
+
 export const loadLikesProduct = createAction(
   "[Product Page] Load Like Product",
   props<{idsPerProduct: IdsForLike}>()

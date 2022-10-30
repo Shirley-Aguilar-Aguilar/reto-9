@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { ProductService } from 'src/app/core/services/product.service';
-import { Category, Product } from 'src/app/shared/interfaces/product';
+import { Category, Like, Product } from 'src/app/shared/interfaces/product';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../reducers/index';
@@ -18,6 +18,7 @@ import * as productSelector from '../store/product.selectors'
 })
 export class BodyProductComponent implements OnInit {
   products$:Observable<Product[]>;
+  likesPerProduct$:Observable<Like[]>;
   categories: Category[];
   textInput = new FormControl('',[Validators.required]);
 
@@ -29,16 +30,19 @@ export class BodyProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCategories();
+    this.store.dispatch(ProductAction.loadProducts());
+    this.products$ = this.store.select(productSelector.selectProducts);
 
+    console.log('aquiiii observable ojala tenga datos de rpkdnvhzdvcdub', this.products$ )
     this.textInput.valueChanges
     .pipe( debounceTime(500), distinctUntilChanged())
     .subscribe((term) => {
        console.log(term)
     })
 
-
-    this.store.dispatch(ProductAction.loadProducts())
-    this.products$ = this.store.select(productSelector.selectProducts);
+    this.store.dispatch(ProductAction.loadLikesByUser({id:this.getIdUser()}))
+    this.likesPerProduct$ = this.store.select(productSelector.selectLikesByUser);
+    console.log('aquiiii observable ojala tenga datos', this.likesPerProduct$ )
   }
 
   getCategories(){
@@ -52,6 +56,8 @@ export class BodyProductComponent implements OnInit {
         console.log(error);
       }
     })
+
+
   }
 
   updateProductsOfService(result:boolean){
@@ -59,6 +65,18 @@ export class BodyProductComponent implements OnInit {
     console.log(result);
    this.store.dispatch(ProductAction.loadProducts())
    this.products$ = this.store.select(productSelector.selectProducts);
+  }
+
+  getIdUser(){
+    let user= localStorage.getItem('user');
+    let userResp;
+    if(user){
+      userResp = JSON.parse(user);
+      //this.userId = userResp.data.user.id;
+      return userResp.data.user.id;
+    }else {
+     return 0;
+    }
   }
 
 }

@@ -3,10 +3,11 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { EMPTY, map, mergeMap, pipe, tap } from "rxjs";
 import { Router } from '@angular/router';
-import { ProductAction } from "./product-action-types";
+//import { ProductAction } from "./product-action-types";
 import { ProductService } from '../../../core/services/product.service';
 import { catchError } from 'rxjs/operators';
 import { loadLikesProduct } from './product.actions';
+import * as ProductAction from './product.actions';
 
 
 @Injectable()
@@ -67,6 +68,29 @@ export class ProductEffects {
         )
       )
     )
+  )
+
+  loadLikeByUser$ = createEffect(() =>
+    this.actions$
+    .pipe(
+      ofType(ProductAction.loadLikesByUser),
+      tap(id => console.log("idddddddddddddddddddddddduser",id)),
+      mergeMap(result => this.productService.getLikesByUser(result.id)
+        .pipe(
+           tap(result => console.log("resultado post create like",result)),
+           map(result => {
+            //console.log("aquiiien map")
+            //console.log(result)
+            //console.log(result.data)
+
+            //result = JSON.parse(JSON.stringify(result.data))
+            ProductAction.loadLikesByUserSuccess({productsWithLike: result})
+            console.log("lineaaaaa 86")
+
+          })
+        )
+      )
+    ),{dispatch:false}
   )
 
 
