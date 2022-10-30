@@ -21,9 +21,12 @@ export class BodyProductComponent implements OnInit {
   products$: Observable<Product[]>;
   likesPerProduct$: Observable<Like[]>;
   categories: Category[];
-  textInput = new FormControl('', [Validators.required, Validators.minLength(4)]);
+  textInput = new FormControl('', [
+    Validators.required,
+    Validators.minLength(4),
+  ]);
   categorySelected: Category;
-  productosSearch:Product[]
+  productosSearch: Product[];
 
   constructor(
     private product: ProductService,
@@ -34,25 +37,26 @@ export class BodyProductComponent implements OnInit {
     this.getCategories();
     this.getProductsToShow();
 
+    //debounce
 
-//debounce
-
-        this.textInput.valueChanges
-        .pipe(debounceTime(700), distinctUntilChanged(),
-        switchMap(value => {
-          if(value){
-            return this.transformNameToSlug(value)
-          }else{
+    this.textInput.valueChanges
+      .pipe(
+        debounceTime(700),
+        distinctUntilChanged(),
+        switchMap((value) => {
+          if (value) {
+            return this.transformNameToSlug(value);
+          } else {
             return EMPTY;
           }
-        })).subscribe((product) => {
-          console.log(product)
-         this.store.dispatch(ProductAction.searchProducts({name: product.name}));
-        });
-
-
-
-
+        })
+      )
+      .subscribe((product) => {
+        console.log(product);
+        this.store.dispatch(
+          ProductAction.searchProducts({ name: product.name })
+        );
+      });
 
     // pendiente ------- likes by user
 
@@ -60,13 +64,12 @@ export class BodyProductComponent implements OnInit {
       ProductAction.loadLikesByUser({ id: this.getIdUser() })
     );
 
-    this.likesPerProduct$ = this.store.select(
+    /*     this.likesPerProduct$ = this.store.select(
       productSelector.selectLikesByUser
-    );
+    ); */
     console.log('aquiiii observable ojala tenga datos', this.likesPerProduct$);
     // pendiennnteeeee--------
   }
-
 
   getCategories() {
     this.product.getCategories().subscribe({
@@ -80,7 +83,7 @@ export class BodyProductComponent implements OnInit {
     });
   }
 
-  getProductsToShow(){
+  getProductsToShow() {
     this.store.dispatch(ProductAction.loadProducts());
     this.products$ = this.store.select(productSelector.selectProducts);
   }
@@ -96,20 +99,26 @@ export class BodyProductComponent implements OnInit {
     }
   }
 
-
-  transformNameToSlug(input:string){
+  transformNameToSlug(input: string) {
     const input2 = input.toLowerCase();
-    this.store.select(productSelector.selectProducts)
-    .pipe(
-    ).subscribe({
-      next:(data) => {
-        this.productosSearch = data.filter((data) => data.name.toLowerCase().includes(input2));
-      }
-    })
+    this.store
+      .select(productSelector.selectProducts)
+      .pipe()
+      .subscribe({
+        next: (data) => {
+          this.productosSearch = data.filter((data) =>
+            data.name.toLowerCase().includes(input2)
+          );
+        },
+      });
     return this.productosSearch;
   }
 
   filterByCategory() {
-    this.store.dispatch(ProductAction.loadFilterProducts({idCategory:this.categorySelected.slug}));
+    this.store.dispatch(
+      ProductAction.loadFilterProducts({
+        idCategory: this.categorySelected.slug,
+      })
+    );
   }
 }

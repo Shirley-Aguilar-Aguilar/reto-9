@@ -18,32 +18,22 @@ export const likesFeatureKey = 'likes';
 export const likesByUserFeatureKey = 'likesByUser';
 
 export interface ProductState {
-  products: Product[]
-}
-export interface LikesState {
-  likes: Like;
-}
-export interface LikesStateByUser {
+  products: Product[],
+  likes: Like,
   likesByUser: Like[];
 }
 
-export const initialProductsState: ProductState = {
-  products:[]
-}
 
-export const initialLikesState: LikesState = {
+export const initialProductsState: ProductState = {
+  products:[],
   likes: {
     id: 0,
     user_id: 0,
     product_id: 0,
     kind: ''
-  }
-}
-export const initialLikesStateByUser: LikesStateByUser = {
+  },
   likesByUser:[]
 }
-//export const reducers: ActionReducerMap<ProductState> = {};
-//export const metaReducers: MetaReducer<ProductState>[] = !environment.production ? [] : [];
 
 export const productReducer = createReducer(
   initialProductsState,
@@ -59,30 +49,19 @@ export const productReducer = createReducer(
       products: action.products
     }
   }),
-
-
-)
-
-// likesss
-export const likesReducer = createReducer(
-  initialLikesState,
-  on(ProductAction.loadLikeProductSuccess, (state, action):LikesState => {
+  on(ProductAction.loadLikeProductSuccess, (state, action):ProductState => {
     return {
       ...state,
       likes: action.likesPerProduct
     }
   }),
-  on(ProductAction.likeProductSuccess, (state, action):LikesState => {
+  on(ProductAction.likeProductSuccess, (state, action):ProductState => {
     return {
       ...state,
       likes: action.likesPerProductResp.data
     }
   }),
-)
-
-export const likesByUserReducer = createReducer(
-  initialLikesStateByUser,
-  on(ProductAction.loadLikesByUserSuccess, (state, action):LikesStateByUser => {
+  on(ProductAction.loadLikesByUserSuccess, (state, action):ProductState => {
 
     return {
       ...state,

@@ -10,15 +10,9 @@ import * as fromProduct from './store/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductEffects } from './store/product.effects';
 import { MatIconModule } from '@angular/material/icon';
-import { AuthService } from 'src/app/core/services/auth.service';
-
-
 
 @NgModule({
-  declarations: [
-    BodyProductComponent,
-    TemplateProductComponent
-  ],
+  declarations: [BodyProductComponent, TemplateProductComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -27,14 +21,12 @@ import { AuthService } from 'src/app/core/services/auth.service';
 
     MatIconModule,
 
-
-    StoreModule.forFeature(fromProduct.productFeatureKey, fromProduct.productReducer),
-    StoreModule.forFeature(fromProduct.likesFeatureKey, fromProduct.likesReducer),
-    StoreModule.forFeature(fromProduct.likesByUserFeatureKey, fromProduct.likesByUserReducer),
+    StoreModule.forFeature(
+      fromProduct.productFeatureKey,
+      fromProduct.productReducer
+    ),
     EffectsModule.forFeature([ProductEffects]),
   ],
-  providers: [ProductService
-
-]
+  providers: [ProductService],
 })
-export class ProductModule { }
+export class ProductModule {}

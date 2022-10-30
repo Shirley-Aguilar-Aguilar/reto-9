@@ -1,11 +1,13 @@
-<div >
+<div>
   <h3>{{ newProduct.name }}</h3>
-  <p> Category: {{ newProduct.category.name }}</p>
-  <p> Description: {{ newProduct.description }} </p>
-
-  <button  (click)=" addCount(newProduct.id)">
-    <mat-icon>{{ dislike ? "favorite_border" : "favorite" }}</mat-icon>
-    {{count}}
+  <p>Category: {{ newProduct.category.name }}</p>
+  <p>Description: {{ newProduct.description }}</p>
+  <mat-icon>thumb_up</mat-icon>
+  <button (click)="addCount(newProduct.id)">
+    <mat-icon fontSet="material-icons-outlined">{{
+      dislike ? "favorite_border" : "thumb_up"
+    }}</mat-icon>
+    {{ count }}
   </button>
-
+  <button color="primary">Agregar carrito</button>
 </div>
