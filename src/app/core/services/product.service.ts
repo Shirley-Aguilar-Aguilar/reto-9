@@ -1,16 +1,20 @@
+/* eslint-disable @ngrx/no-typed-global-store */
 import { Injectable } from '@angular/core';
 import { HttpClient,  HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CategorytResp, IdsForLike, Products, LikeBodyPost, LikeBodyResp } from '../../shared/interfaces/product';
-
+import { AppState } from 'src/app/reducers';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 
 export class ProductService {
   host:string = environment.urlApi;
 
-  constructor(private http:HttpClient,
+  constructor(
+    private http:HttpClient,
+    private store: Store<AppState>
     ) { }
 
 
@@ -36,13 +40,15 @@ export class ProductService {
   postLike(data:LikeBodyPost):Observable<LikeBodyResp>{
     return this.http.post<LikeBodyResp>(this.host + '/likes', data)
   }
-
+//modificar mas adelante
   getFilterProductByCategory(id:string):Observable<Products>{
     return this.http.get<Products>(this.host +'/products' + `?include=category&filter[category_slug_eq]=${id}`)
   }
 
-  searchProductsByName(name:string):Observable<Products>{
+   searchProductsByName(name:string):Observable<Products>{
     return this.http.get<Products>(this.host +'/products' + `?include=category&filter[name_eq]=${name}`)
   }
+
+
 
 }

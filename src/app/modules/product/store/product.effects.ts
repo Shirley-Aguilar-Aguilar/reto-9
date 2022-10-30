@@ -38,7 +38,7 @@ export class ProductEffects {
            catchError(() => EMPTY)
          )
        )
-    )
+    ),{dispatch:false}
   )
 
   addLike$ = createEffect(() =>
@@ -53,7 +53,7 @@ export class ProductEffects {
           catchError(() => EMPTY)
         )
       )
-    )
+    ),{dispatch:false}
   )
 
   deleteLike$ = createEffect(() =>
@@ -67,7 +67,7 @@ export class ProductEffects {
           map(dislike =>  ProductAction.dislikeProductSuccess({likesPerProductResp: dislike}))
         )
       )
-    )
+    ),{dispatch:false}
   )
 
   loadFilterProducts$ = createEffect(() =>
@@ -83,24 +83,34 @@ export class ProductEffects {
    )
  );
 
+ searchProductsByName$ = createEffect(() =>
+   this.actions$
+   .pipe(
+      ofType(ProductAction.searchProducts),
+      mergeMap( result => this.productService.searchProductsByName(result.name)
+      .pipe(
+        map(products =>  ProductAction.loadProductsSuccess({products:products.data})),
+        catchError(() => EMPTY)
+      )
+      )
+   ),{dispatch:false}
+ )
+
+
+
+ // falta load likes by user
+
   loadLikeByUser$ = createEffect(() =>
     this.actions$
     .pipe(
       ofType(ProductAction.loadLikesByUser),
-      tap(id => console.log("idddddddddddddddddddddddduser",id)),
       mergeMap(result => this.productService.getLikesByUser(result.id)
         .pipe(
-           tap(result => console.log("resultado post create like",result)),
            map(result => {
-            //console.log("aquiiien map")
-            //console.log(result)
-            //console.log(result.data)
+            console.log("result:", result)
+            return ProductAction.loadLikesByUserSuccess({productsWithLike: result})}),
+           catchError(() => EMPTY)
 
-            //result = JSON.parse(JSON.stringify(result.data))
-            ProductAction.loadLikesByUserSuccess({productsWithLike: result})
-            console.log("lineaaaaa 86")
-
-          })
         )
       )
     ),{dispatch:false}

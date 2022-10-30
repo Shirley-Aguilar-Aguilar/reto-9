@@ -2,7 +2,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { debounceTime, distinctUntilChanged, EMPTY, filter } from 'rxjs';
 import { ProductService } from 'src/app/core/services/product.service';
 import { Category, Like, Product } from 'src/app/shared/interfaces/product';
 import { Observable } from 'rxjs';
@@ -10,6 +10,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../reducers/index';
 import { ProductAction } from '../store/product-action-types';
 import * as productSelector from '../store/product.selectors';
+import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-body-product',
@@ -20,8 +21,9 @@ export class BodyProductComponent implements OnInit {
   products$: Observable<Product[]>;
   likesPerProduct$: Observable<Like[]>;
   categories: Category[];
-  textInput = new FormControl('', [Validators.required]);
+  textInput = new FormControl('', [Validators.required, Validators.minLength(4)]);
   categorySelected: Category;
+  productosSearch:Product[]
 
   constructor(
     private product: ProductService,
@@ -34,11 +36,23 @@ export class BodyProductComponent implements OnInit {
 
 
 //debounce
-    this.textInput.valueChanges
-      .pipe(debounceTime(500), distinctUntilChanged())
-      .subscribe((term) => {
-        //this.store.dispatch(ProductAction.searchProducts({name:}));
-      });
+
+        this.textInput.valueChanges
+        .pipe(debounceTime(700), distinctUntilChanged(),
+        switchMap(value => {
+          if(value){
+            return this.transformNameToSlug(value)
+          }else{
+            return EMPTY;
+          }
+        })).subscribe((product) => {
+          console.log(product)
+         this.store.dispatch(ProductAction.searchProducts({name: product.name}));
+        });
+
+
+
+
 
     // pendiente ------- likes by user
 
@@ -52,6 +66,7 @@ export class BodyProductComponent implements OnInit {
     console.log('aquiiii observable ojala tenga datos', this.likesPerProduct$);
     // pendiennnteeeee--------
   }
+
 
   getCategories() {
     this.product.getCategories().subscribe({
@@ -79,6 +94,19 @@ export class BodyProductComponent implements OnInit {
     } else {
       return 0;
     }
+  }
+
+
+  transformNameToSlug(input:string){
+    const input2 = input.toLowerCase();
+    this.store.select(productSelector.selectProducts)
+    .pipe(
+    ).subscribe({
+      next:(data) => {
+        this.productosSearch = data.filter((data) => data.name.toLowerCase().includes(input2));
+      }
+    })
+    return this.productosSearch;
   }
 
   filterByCategory() {
