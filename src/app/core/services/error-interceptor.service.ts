@@ -24,8 +24,8 @@ export class ErrorInterceptorService implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const headers = this.AuthService.getToken();
-    console.log("headers")
-    console.log(headers)
+    // console.log("headers")
+    //console.log(headers)
     const reqClone = request.clone({ headers });
 
     return next.handle(reqClone).pipe(

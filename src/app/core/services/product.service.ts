@@ -32,9 +32,17 @@ export class ProductService {
   getLikesByUser(id:number):Observable<any> {
     return this.http.get(this.host + '/likes'+ `?[filter][user_id_eq]=${id}` );
   }
-//{{url}}/likes?[filter][user_id_eq]=3&[filter][product_id_eq]=25
+
   postLike(data:LikeBodyPost):Observable<LikeBodyResp>{
     return this.http.post<LikeBodyResp>(this.host + '/likes', data)
+  }
+
+  getFilterProductByCategory(id:string):Observable<Products>{
+    return this.http.get<Products>(this.host +'/products' + `?include=category&filter[category_slug_eq]=${id}`)
+  }
+
+  searchProductsByName(name:string):Observable<Products>{
+    return this.http.get<Products>(this.host +'/products' + `?include=category&filter[name_eq]=${name}`)
   }
 
 }

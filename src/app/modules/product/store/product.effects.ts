@@ -70,6 +70,19 @@ export class ProductEffects {
     )
   )
 
+  loadFilterProducts$ = createEffect(() =>
+  this.actions$
+   .pipe(
+      ofType(ProductAction.loadFilterProducts),
+      mergeMap((result) => this.productService.getFilterProductByCategory(result.idCategory)
+        .pipe(
+          map(products =>  ProductAction.loadProductsSuccess({products:products.data})),
+          catchError(() => EMPTY)
+        )
+      )
+   )
+ );
+
   loadLikeByUser$ = createEffect(() =>
     this.actions$
     .pipe(

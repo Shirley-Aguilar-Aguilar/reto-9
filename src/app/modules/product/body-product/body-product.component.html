@@ -3,10 +3,16 @@
     <label for="categorie">Categories</label>
     <select
       id="categorie"
+      [(ngModel)]="categorySelected"
+      name="category"
+      (change)="filterByCategory()"
+
+      #value
     >
-      <option *ngFor="let categorie of categories" [value]="categorie.name">
-        {{ categorie.name }}
+      <option *ngFor="let category of categories" [ngValue]="category" >
+        {{ category.name }}
       </option>
+      <option [ngValue]="{slug:''}">All products</option>
     </select>
   </ng-container>
 
@@ -19,6 +25,6 @@
 
 <app-template-product
 [product] = "product" *ngFor="let product of products$|async"
-(updateProductsOfService)="updateProductsOfService($event)"
+
 >
 </app-template-product>

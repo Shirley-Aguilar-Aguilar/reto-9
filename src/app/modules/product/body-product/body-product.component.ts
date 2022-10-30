@@ -9,74 +9,79 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../reducers/index';
 import { ProductAction } from '../store/product-action-types';
-import * as productSelector from '../store/product.selectors'
+import * as productSelector from '../store/product.selectors';
 
 @Component({
   selector: 'app-body-product',
   templateUrl: './body-product.component.html',
-  styleUrls: ['./body-product.component.scss']
+  styleUrls: ['./body-product.component.scss'],
 })
 export class BodyProductComponent implements OnInit {
-  products$:Observable<Product[]>;
-  likesPerProduct$:Observable<Like[]>;
+  products$: Observable<Product[]>;
+  likesPerProduct$: Observable<Like[]>;
   categories: Category[];
-  textInput = new FormControl('',[Validators.required]);
+  textInput = new FormControl('', [Validators.required]);
+  categorySelected: Category;
 
   constructor(
     private product: ProductService,
-    private store: Store<AppState>,
-    ) { }
-
+    private store: Store<AppState>
+  ) {}
 
   ngOnInit(): void {
     this.getCategories();
-    this.store.dispatch(ProductAction.loadProducts());
-    this.products$ = this.store.select(productSelector.selectProducts);
+    this.getProductsToShow();
 
-    console.log('aquiiii observable ojala tenga datos de rpkdnvhzdvcdub', this.products$ )
+
+//debounce
     this.textInput.valueChanges
-    .pipe( debounceTime(500), distinctUntilChanged())
-    .subscribe((term) => {
-       console.log(term)
-    })
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((term) => {
+        //this.store.dispatch(ProductAction.searchProducts({name:}));
+      });
 
-    this.store.dispatch(ProductAction.loadLikesByUser({id:this.getIdUser()}))
-    this.likesPerProduct$ = this.store.select(productSelector.selectLikesByUser);
-    console.log('aquiiii observable ojala tenga datos', this.likesPerProduct$ )
+    // pendiente ------- likes by user
+
+    this.store.dispatch(
+      ProductAction.loadLikesByUser({ id: this.getIdUser() })
+    );
+
+    this.likesPerProduct$ = this.store.select(
+      productSelector.selectLikesByUser
+    );
+    console.log('aquiiii observable ojala tenga datos', this.likesPerProduct$);
+    // pendiennnteeeee--------
   }
 
-  getCategories(){
-    this.product.getCategories()
-    .subscribe({
+  getCategories() {
+    this.product.getCategories().subscribe({
       next: (data) => {
-         console.log(data.data);
-         this.categories = data.data;
+        console.log(data.data);
+        this.categories = data.data;
       },
       error: (error) => {
         console.log(error);
-      }
-    })
-
-
+      },
+    });
   }
 
-  updateProductsOfService(result:boolean){
-    console.log("event------------for update")
-    console.log(result);
-   this.store.dispatch(ProductAction.loadProducts())
-   this.products$ = this.store.select(productSelector.selectProducts);
+  getProductsToShow(){
+    this.store.dispatch(ProductAction.loadProducts());
+    this.products$ = this.store.select(productSelector.selectProducts);
   }
 
-  getIdUser(){
-    let user= localStorage.getItem('user');
+  getIdUser() {
+    let user = localStorage.getItem('user');
     let userResp;
-    if(user){
+    if (user) {
       userResp = JSON.parse(user);
-      //this.userId = userResp.data.user.id;
       return userResp.data.user.id;
-    }else {
-     return 0;
+    } else {
+      return 0;
     }
   }
 
+  filterByCategory() {
+    this.store.dispatch(ProductAction.loadFilterProducts({idCategory:this.categorySelected.slug}));
+  }
 }

@@ -51,4 +51,12 @@ export const dislikeProductSuccess = createAction(
   props<{likesPerProductResp: LikeBodyResp}>()
 )
 
+export const loadFilterProducts = createAction(
+  "[Product Page] Load Filter Products",
+  props<{idCategory: string}>()
+)
 
+export const searchProducts = createAction(
+  "[Product Page] Search Products",
+  props<{name: string}>()
+)
