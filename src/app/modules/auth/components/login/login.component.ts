@@ -14,6 +14,7 @@ import { UserLogin } from '../../../../shared/interfaces/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../reducers/index';
 import { AuthActions } from '../../store/action-types';
+import { CartActions } from 'src/app/modules/cart/store/action-types';
 
 @Component({
   selector: 'app-login',

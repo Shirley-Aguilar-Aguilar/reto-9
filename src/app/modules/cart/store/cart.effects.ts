@@ -1,3 +1,4 @@
+/* eslint-disable @ngrx/no-dispatch-in-effects */
 /* eslint-disable @ngrx/prefer-effect-callback-in-block-statement */
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
@@ -6,6 +7,7 @@ import { CartActions } from './action-types';
 import { EMPTY, map, mergeMap, of, pipe, tap } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class CartEffects {
@@ -35,7 +37,6 @@ export class CartEffects {
         )
       ),
       catchError((error) => {
-        // localStorage.removeItem('products');
         return of(
           CartActions.createCartFailure({
             message: 'Sorry, your proccess can not be successfull,try again',
@@ -68,6 +69,7 @@ export class CartEffects {
   constructor(
     private actions$: Actions,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private store: Store
   ) {}
 }

@@ -7,6 +7,16 @@
   font-size: x-large;
 }
 .btnSave {
-  margin: 10px 0;
+  margin: 20px 0;
   width: 100%;
+}
+.containerError {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
+  button {
+    margin: 30px 0;
+  }
 }

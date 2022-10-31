@@ -11,12 +11,8 @@ import {
 import { CartActions } from '../../store/action-types';
 import { Observable, tap } from 'rxjs';
 import * as cartSelector from '../../store/cart.selectors';
-import {
-  PayloadUpdateProduct,
-  ProductDescription,
-} from '../../../../shared/interfaces/cart';
+import { ProductDescription } from '../../../../shared/interfaces/cart';
 import { Router } from '@angular/router';
-import { UpdateProductReq } from '../../../../shared/interfaces/cart';
 
 @Component({
   selector: 'app-body-cart',
@@ -37,7 +33,7 @@ export class BodyCartComponent implements OnInit {
 
   getProductsAndQtyFromLocal() {
     const productsLocal = localStorage.getItem('products');
-    debugger;
+    // debugger;
     if (productsLocal) {
       console.log('data productsLocal save', productsLocal);
       const dataToSave = this.transformDataToSave(JSON.parse(productsLocal));
@@ -64,7 +60,6 @@ export class BodyCartComponent implements OnInit {
   }
 
   createCart(data: payloadCreateCart) {
-    //this.store.dispatch(CartActions.deleteCart());
     this.store.dispatch(CartActions.createCart({ cart: data }));
     this.resultErrorCreateCart$ = this.store.select(
       cartSelector.selectErrorMessage
@@ -93,11 +88,12 @@ export class BodyCartComponent implements OnInit {
 
   get getTotalPrice() {
     this.resultCorrectCreateCart$.subscribe((data) => {
+      console.log(data);
       if (data) {
         this.priceTotal = data?.data.items
           .map((product) => product.quantity * parseInt(product.price))
           .reduce(
-            (priceAnt: number, priceLast: number) => priceAnt + priceLast
+            (priceAnt: number, priceLast: number) => priceLast + priceAnt
           );
 
         return this.priceTotal;
@@ -107,9 +103,17 @@ export class BodyCartComponent implements OnInit {
     return this.priceTotal;
   }
 
-  saveOrder() {
-    this.router.navigate(['home']);
+  deleteAndNavigate() {
+    this.router.navigate(['/home']);
     this.store.dispatch(CartActions.deleteCart());
     localStorage.removeItem('products');
+  }
+
+  saveOrder() {
+    this.deleteAndNavigate();
+  }
+
+  handlerError() {
+    this.deleteAndNavigate();
   }
 }

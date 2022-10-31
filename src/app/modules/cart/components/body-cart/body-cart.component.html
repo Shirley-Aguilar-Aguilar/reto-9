@@ -2,6 +2,13 @@
   *ngIf="resultErrorCreateCart$ | async; then errorCart; else showCart"
 ></div>
 <ng-template #errorCart>
+  <div class="containerError">
+    <h1>There was an error. Please try again later</h1>
+    <button mat-raised-button color="primary" (click)="handlerError()">
+      Go back to products
+    </button>
+  </div>
+
   <app-error-message [errorMessage]="resultErrorCreateCart$ | async">
   </app-error-message>
 </ng-template>
@@ -30,6 +37,15 @@
         (click)="saveOrder()"
       >
         Save Order
+      </button>
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="btnSave"
+        (click)="saveOrder()"
+      >
+        Go to products
       </button>
     </div>
   </ng-container>
