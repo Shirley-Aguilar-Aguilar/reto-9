@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeGuard } from './core/guards/home.guard';
 import { FirstPageComponent } from './modules/auth/components/first-page/first-page.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { ExitAuthGuard } from './core/guards/exit-auth.guard';
 
 const routes: Routes = [
   { path: '', component: FirstPageComponent, canActivate: [AuthGuard] },

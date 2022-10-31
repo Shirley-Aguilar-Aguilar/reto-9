@@ -50,31 +50,7 @@ export class LoginComponent {
   get password() {
     return this.form.get('password');
   }
-  /*   getControl(controlName: string): AbstractControl {
-    return this.form.get(controlName) as AbstractControl;
-  }
 
-  getErrorMessage() {
-    if (this.getControl('email').hasError('required')) {
-      return 'Email is required';
-    } else {
-      return this.getControl('email').hasError('email')
-        ? 'Not a valid email'
-        : '';
-    }
-  }
-  getErrorMessagePassword() {
-    if (this.getControl('password').hasError('required')) {
-      return 'Password is required';
-    } else {
-      return this.getControl('password').hasError('minlength')
-        ? `Password name should be minimum ${
-            this.getControl('password').errors?.['minlength'].requiredLength
-          } characters`
-        : '';
-    }
-  }
- */
   storeToken(response: string): void {
     localStorage.setItem('token', response);
   }

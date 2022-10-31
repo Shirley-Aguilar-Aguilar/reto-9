@@ -5,11 +5,11 @@ import {
   RouterStateSnapshot,
   Router,
 } from '@angular/router';
-// import { JwtHelperService } from '@auth0/angular-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
   constructor(private router: Router) {}
@@ -18,17 +18,16 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-/*     const jwtHelper: JwtHelperService = new JwtHelperService();
-    const token = localStorage.getItem('accessToken');
+    const jwtHelper: JwtHelperService = new JwtHelperService();
+    const token = localStorage.getItem('token');
     if (token && !jwtHelper.isTokenExpired(token)) {
       this.redirect();
       return false;
-    } */
+    }
     return true;
   }
 
   private redirect(): void {
     this.router.navigate(['/home']);
   }
-
 }
