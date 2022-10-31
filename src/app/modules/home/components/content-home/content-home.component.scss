@@ -1,9 +1,8 @@
 @import "_colors";
 @import "_mixins";
 
-
 input,
-select{
+select {
   padding: 10px 10px;
   background-color: $backgroundColorGray;
   border: 1px solid $borderColor;
@@ -18,5 +17,5 @@ select:focus {
 }
 img {
   height: 100px;
-  width:100px;
+  width: 100px;
 }

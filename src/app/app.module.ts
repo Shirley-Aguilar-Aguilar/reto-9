@@ -6,22 +6,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
-import { StoreModule } from "@ngrx/store";
-import { StoreDevtoolsModule } from "@ngrx/store-devtools";
-import { miReducer } from './app.reducer';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { AuthModule } from './modules/auth/auth.module';
 import { reducers, metaReducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreRouterConnectingModule, routerReducer, RouterState } from '@ngrx/router-store';
+import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
 import { ErrorInterceptorService } from './core/services/error-interceptor.service';
 import { AuthService } from './core/services/auth.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -29,17 +24,17 @@ import { AuthService } from './core/services/auth.service';
     AppRoutingModule,
 
     StoreDevtoolsModule.instrument({
-      maxAge: 25
+      maxAge: 25,
     }),
 
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
-        strictStateImmutability:true,
-        strictActionImmutability:true,
+        strictStateImmutability: true,
+        strictActionImmutability: true,
         strictActionSerializability: true,
-        strictStateSerializability:true
-      }
+        strictStateSerializability: true,
+      },
     }),
 
     !environment.production ? StoreDevtoolsModule.instrument() : [],
@@ -47,10 +42,9 @@ import { AuthService } from './core/services/auth.service';
     EffectsModule.forRoot([]),
 
     StoreRouterConnectingModule.forRoot({
-       stateKey: 'router',
-       routerState: RouterState.Minimal
-    })
-
+      stateKey: 'router',
+      routerState: RouterState.Minimal,
+    }),
   ],
   providers: [
     AuthService,
@@ -60,13 +54,6 @@ import { AuthService } from './core/services/auth.service';
       multi: true,
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
-
-   // AuthModule.forRoot()
-   //StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-   //StoreModule.forRoot({}, {})
- /*    StoreModule.forRoot({
-      mensaje: miReducer
-    }), */
+export class AppModule {}
