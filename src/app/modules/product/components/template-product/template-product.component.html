@@ -5,6 +5,9 @@
     <p>Stock:{{ newProduct.master.stock }}</p>
     <p>Description: {{ newProduct.description }}</p>
   </div>
+  <div class="widthMiddle">
+    <img src="assets/img/logo-shop.jpg" class="imgDefault" />
+  </div>
 
   <button (click)="addCount(newProduct.id)" class="btnLike">
     <mat-icon [fontSet]="isDislike()">{{ "thumb_up" }}</mat-icon>

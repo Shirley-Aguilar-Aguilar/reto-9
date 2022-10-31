@@ -47,3 +47,12 @@ h3 {
   color: $colorRed;
   font-weight: bolder;
 }
+.imgDefault {
+  height: 60px;
+  border-radius: 8px;
+  margin: 15px 5px;
+}
+.widthMiddle {
+  display: flex;
+  justify-content: center;
+}
