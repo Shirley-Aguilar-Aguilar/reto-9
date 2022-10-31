@@ -1,33 +1,40 @@
-<div>
+<div class="containerSelectSearch">
   <ng-container *ngIf="true">
-    <label for="categorie">Categories</label>
-    <select
-      id="categorie"
-      [(ngModel)]="categorySelected"
-      name="category"
-      (change)="filterByCategory()"
-      #value
-    >
-      <option *ngFor="let category of categories" [ngValue]="category">
-        {{ category.name }}
-      </option>
-      <option [ngValue]="{ slug: '' }">All products</option>
-    </select>
+    <div class="containerFilter">
+      <label for="categorie">Categories</label>
+      <select
+        id="categorie"
+        [(ngModel)]="categorySelected"
+        name="category"
+        (change)="filterByCategory()"
+        #value
+      >
+        <option *ngFor="let category of categories" [ngValue]="category">
+          {{ category.name }}
+        </option>
+        <option [ngValue]="{ slug: '' }">All products</option>
+      </select>
+    </div>
   </ng-container>
 
-  <label for="search">Search products</label>
-  <input name="search" type="text" [formControl]="textInput" />
+  <div class="containerFilter">
+    <label for="search">Search products</label>
+    <input name="search" type="text" [formControl]="textInput" />
+  </div>
 
-  <button (click)="validateNavigation()">
-    <img src="assets/img/logo-cart.jpg" />
+  <button (click)="validateNavigation()" class="btnLike">
+    <img src="assets/img/cart.jpg" />
   </button>
 </div>
 
-<app-template-product
-  [product]="product"
-  *ngFor="let product of products$ | async"
->
-</app-template-product>
+<div class="gridProducts">
+  <app-template-product
+    [product]="product"
+    *ngFor="let product of products$ | async"
+  >
+  </app-template-product>
+</div>
+
 <ng-container *ngIf="error">
   <app-error-message [errorMessage]="error"> </app-error-message>
 </ng-container>

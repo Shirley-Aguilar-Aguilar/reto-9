@@ -1,49 +1,66 @@
-<div>
+<div class="productContainer">
   <h3>{{ newProduct.name }}</h3>
-  <p>Category: {{ newProduct.category.name }}</p>
-  <p>Stock:{{ newProduct.master.stock }}</p>
-  <p>Description: {{ newProduct.description }}</p>
-  <button (click)="addCount(newProduct.id)">
+  <div>
+    <p>Category: {{ newProduct.category.name }}</p>
+    <p>Stock:{{ newProduct.master.stock }}</p>
+    <p>Description: {{ newProduct.description }}</p>
+  </div>
+
+  <button (click)="addCount(newProduct.id)" class="btnLike">
     <mat-icon [fontSet]="isDislike()">{{ "thumb_up" }}</mat-icon>
     {{ countLike }}
   </button>
 
   <div *ngIf="newProduct.master.stock > 0; then stock; else noStock"></div>
+
   <ng-template #noStock>
-    <button [disabled]="true" mat-raised-button color="primary">-</button>
-    <label>No stock</label>
-    <button [disabled]="true" mat-raised-button color="primary">+</button>
-    <br />
-    <button [disabled]="true" mat-raised-button color="primary">AddCart</button>
+    <div class="containerBtnAddDelete">
+      <span>
+        <button [disabled]="true" mat-raised-button color="primary">-</button>
+        <label class="warnWord">No stock</label>
+        <button [disabled]="true" mat-raised-button color="primary">+</button>
+      </span>
+
+      <button [disabled]="true" mat-raised-button color="primary">
+        AddCart
+      </button>
+    </div>
   </ng-template>
 
   <ng-template #stock>
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="countProduct === 0 ? 0 : (countProduct = countProduct - 1)"
-    >
-      -
-    </button>
-    <input [(ngModel)]="countProduct" />
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="countProduct = countProduct + 1"
-    >
-      +
-    </button>
+    <div class="containerBtnAddDelete">
+      <span>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="countProduct === 0 ? 0 : (countProduct = countProduct - 1)"
+        >
+          -
+        </button>
+        <input [(ngModel)]="countProduct" />
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="countProduct = countProduct + 1"
+        >
+          +
+        </button>
+      </span>
 
-    <br />
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="saveProduct(newProduct)"
-      [disabled]="isDisabledAddProduct"
-      matTooltip="Only can add product once time, you can edit on shopping cart"
-    >
-      Add cart
-    </button>
+      <div
+        matTooltip="Only can add product once time, you can edit on shopping cart"
+        class="spaceWidth"
+      >
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="saveProduct(newProduct)"
+          [disabled]="isDisabledAddProduct"
+        >
+          Add cart
+        </button>
+      </div>
+    </div>
   </ng-template>
 </div>
 

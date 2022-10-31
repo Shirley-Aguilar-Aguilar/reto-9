@@ -21,6 +21,7 @@ export class ExitAuthGuard implements CanDeactivate<unknown> {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
+    const resp = confirm('Estas seguro de salir');
     return false;
   }
 }
