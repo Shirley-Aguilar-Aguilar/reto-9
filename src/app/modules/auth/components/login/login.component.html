@@ -11,11 +11,14 @@
       matInput
       placeholder="user@example.com"
       formControlName="email"
-      [ngModel]="email"
+      [ngModel]="emails"
     />
-    <mat-error *ngIf="getControl('email').invalid">{{
-      getErrorMessage()
-    }}</mat-error>
+    <mat-error class="errorContainer" *ngIf="email?.touched && !email?.valid">
+      <div *ngIf="email?.errors?.['required']">Email is required</div>
+      <div *ngIf="email?.errors?.['email']">
+        Input does not have an email format
+      </div>
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -25,7 +28,7 @@
       [type]="hide ? 'password' : 'text'"
       formControlName="password"
       autocomplete="on"
-      [ngModel]="password"
+      [ngModel]="passwords"
     />
     <button
       type="button"
@@ -37,9 +40,17 @@
     >
       <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
     </button>
-    <mat-error *ngIf="getControl('password').invalid">{{
-      getErrorMessagePassword()
-    }}</mat-error>
+
+    <mat-error
+      class="errorContainer"
+      *ngIf="password?.touched && !password?.valid"
+    >
+      <div *ngIf="password?.errors?.['required']">Password is required</div>
+      <div *ngIf="password?.errors?.['minlength']">
+        Password name should be minimum
+        {{password?.errors?.['minlength'].requiredLength}} characters
+      </div>
+    </mat-error>
   </mat-form-field>
 
   <div

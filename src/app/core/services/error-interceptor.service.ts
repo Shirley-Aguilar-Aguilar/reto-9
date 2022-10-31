@@ -37,7 +37,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
           if (token && jwtHelper.isTokenExpired(token)) {
             errorMessage = `Error Code: ${error.status}\nMessage: token is invalid`;
           }
-          errorMessage = `Error Code: ${error.status}\nMessage: You need login for this activity`;
+          errorMessage = `Error Code: ${error.status}\nMessage: Your credentials are invalid`;
         } else {
           if (error.error instanceof ErrorEvent) {
             errorMessage = `Error: ${error.error.message}`;

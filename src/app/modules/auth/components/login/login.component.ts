@@ -1,3 +1,5 @@
+/* eslint-disable @ngrx/no-typed-global-store */
+// import * as fromActions from '../../store/auth.actions';
 import { Component } from '@angular/core';
 import {
   Validators,
@@ -6,12 +8,11 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs';
+import { finalize, tap } from 'rxjs';
 import { AuthService } from '../../../../core/services/auth.service';
 import { UserLogin } from '../../../../shared/interfaces/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../reducers/index';
-// import * as fromActions from '../../store/auth.actions';
 import { AuthActions } from '../../store/action-types';
 
 @Component({
@@ -20,8 +21,8 @@ import { AuthActions } from '../../store/action-types';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  email = 'trainee4@example.com';
-  password = 'Trainee$4';
+  emails = 'trainee4@example.com';
+  passwords = 'Trainee$4';
   hide = true;
   form: FormGroup;
   loading: boolean = false;
@@ -31,7 +32,6 @@ export class LoginComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    // eslint-disable-next-line @ngrx/no-typed-global-store
     private store: Store<AppState>
   ) {
     this.buildForm();
@@ -43,8 +43,14 @@ export class LoginComponent {
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
+  get email() {
+    return this.form.get('email');
+  }
 
-  getControl(controlName: string): AbstractControl {
+  get password() {
+    return this.form.get('password');
+  }
+  /*   getControl(controlName: string): AbstractControl {
     return this.form.get(controlName) as AbstractControl;
   }
 
@@ -68,7 +74,7 @@ export class LoginComponent {
         : '';
     }
   }
-
+ */
   storeToken(response: string): void {
     localStorage.setItem('token', response);
   }
@@ -80,19 +86,18 @@ export class LoginComponent {
         tap((user) => {
           console.log(user);
           this.store.dispatch(AuthActions.login({ user }));
-        })
+        }),
+        finalize(() => (this.loading = false))
       )
       .subscribe({
         next: (response) => {
           this.error = '';
           this.storeToken(response.data.token);
           this.router.navigate(['home']);
-          this.loading = false;
         },
         error: (error) => {
           console.log(error);
           this.error = error;
-          this.loading = false;
         },
       });
   }
