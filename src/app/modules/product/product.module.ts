@@ -15,6 +15,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SharedModule } from 'src/app/shared/module/shared.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ProductsResolver } from './store/product.resolver';
+import { CategoryResolver } from './store/category.resolver';
 
 @NgModule({
   declarations: [BodyProductComponent, TemplateProductComponent],
@@ -37,6 +39,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ),
     EffectsModule.forFeature([ProductEffects]),
   ],
-  providers: [ProductService],
+  providers: [ProductService, ProductsResolver, CategoryResolver],
 })
 export class ProductModule {}

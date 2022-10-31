@@ -1,4 +1,3 @@
-
 import { environment } from '../../../../../environments/environment.prod';
 import {
   ActionReducer,
@@ -7,66 +6,70 @@ import {
   createSelector,
   MetaReducer,
   createReducer,
-  on
+  on,
 } from '@ngrx/store';
-import { Likes, Product, Like } from 'src/app/shared/interfaces/product';
+import {
+  Likes,
+  Product,
+  Like,
+  CategorytResp,
+  Category,
+} from 'src/app/shared/interfaces/product';
 import { ProductAction } from '../product-action-types';
-
 
 export const productFeatureKey = 'products';
 export const likesFeatureKey = 'likes';
 export const likesByUserFeatureKey = 'likesByUser';
 
 export interface ProductState {
-  products: Product[],
-  likes: Like,
+  products: Product[];
+  likes: Like;
   likesByUser: Like[];
+  categories: Category[];
 }
 
-
 export const initialProductsState: ProductState = {
-  products:[],
+  products: [],
   likes: {
     id: 0,
     user_id: 0,
     product_id: 0,
-    kind: ''
+    kind: '',
   },
-  likesByUser:[]
-}
+  likesByUser: [],
+  categories: [],
+};
 
 export const productReducer = createReducer(
   initialProductsState,
-  on(ProductAction.loadProductsSuccess, (state, action):ProductState => {
+  on(ProductAction.loadProductsSuccess, (state, action): ProductState => {
     return {
       ...state,
-      products: action.products
-    }
+      products: action.products,
+    };
   }),
-  on(ProductAction.loadProductsSuccess, (state, action):ProductState => {
+  on(ProductAction.loadCategoriesSuccess, (state, action): ProductState => {
     return {
       ...state,
-      products: action.products
-    }
+      categories: action.categories,
+    };
   }),
-  on(ProductAction.loadLikeProductSuccess, (state, action):ProductState => {
+  on(ProductAction.loadLikeProductSuccess, (state, action): ProductState => {
     return {
       ...state,
-      likes: action.likesPerProduct
-    }
+      likes: action.likesPerProduct,
+    };
   }),
-  on(ProductAction.likeProductSuccess, (state, action):ProductState => {
+  on(ProductAction.likeProductSuccess, (state, action): ProductState => {
     return {
       ...state,
-      likes: action.likesPerProductResp.data
-    }
+      likes: action.likesPerProductResp.data,
+    };
   }),
-  on(ProductAction.loadLikesByUserSuccess, (state, action):ProductState => {
-
+  on(ProductAction.loadLikesByUserSuccess, (state, action): ProductState => {
     return {
       ...state,
-      likesByUser: action.productsWithLike
-    }
-  }),
-)
-
+      likesByUser: action.productsWithLike,
+    };
+  })
+);

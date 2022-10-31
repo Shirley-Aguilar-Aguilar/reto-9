@@ -12,3 +12,8 @@ export const selectLikesByUser = createSelector(
   selectProductState,
   (state) => state.likesByUser
 );
+
+export const selectCategories = createSelector(
+  selectProductState,
+  (state) => state.categories
+);

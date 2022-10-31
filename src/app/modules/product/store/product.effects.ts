@@ -5,7 +5,7 @@ import { EMPTY, map, mergeMap, pipe, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { ProductAction } from './product-action-types';
 import { ProductService } from '../../../core/services/product.service';
-import { catchError } from 'rxjs/operators';
+import { catchError, concatMap } from 'rxjs/operators';
 import { loadLikesProduct } from './product.actions';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class ProductEffects {
   loadProducts$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ProductAction.loadProducts),
-      mergeMap(() =>
+      concatMap(() =>
         this.productService
           .getProducts()
           .pipe(
@@ -21,6 +21,23 @@ export class ProductEffects {
               ProductAction.loadProductsSuccess({ products: products.data })
             )
           )
+      )
+    )
+  );
+
+  loadCategories$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ProductAction.loadCategories),
+      concatMap(() =>
+        this.productService.getCategories().pipe(
+          map((category) =>
+            ProductAction.loadCategoriesSuccess({ categories: category.data })
+          ),
+          catchError((error) => {
+            console.log(error);
+            return EMPTY;
+          })
+        )
       )
     )
   );

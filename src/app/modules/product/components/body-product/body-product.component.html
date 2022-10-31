@@ -9,7 +9,10 @@
         (change)="filterByCategory()"
         #value
       >
-        <option *ngFor="let category of categories" [ngValue]="category">
+        <option
+          *ngFor="let category of categories$ | async"
+          [ngValue]="category"
+        >
           {{ category.name }}
         </option>
         <option [ngValue]="{ slug: '' }">All products</option>

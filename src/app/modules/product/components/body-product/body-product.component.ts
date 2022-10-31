@@ -21,7 +21,8 @@ import { Router } from '@angular/router';
 export class BodyProductComponent implements OnInit {
   products$: Observable<Product[]>;
   likesPerProduct$: Observable<Like[]>;
-  categories: Category[];
+  categories$: Observable<Category[]>;
+
   textInput = new FormControl('', [
     Validators.required,
     Validators.minLength(4),
@@ -73,19 +74,10 @@ export class BodyProductComponent implements OnInit {
   }
 
   getCategories() {
-    this.product.getCategories().subscribe({
-      next: (data) => {
-        console.log(data.data);
-        this.categories = data.data;
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
+    this.categories$ = this.store.select(productSelector.selectCategories);
   }
 
   getProductsToShow() {
-    this.store.dispatch(ProductAction.loadProducts());
     this.products$ = this.store.select(productSelector.selectProducts);
   }
 
