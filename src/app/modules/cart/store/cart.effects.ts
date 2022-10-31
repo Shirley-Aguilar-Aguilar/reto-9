@@ -5,6 +5,7 @@ import { CartService } from '../../../core/services/cart.service';
 import { CartActions } from './action-types';
 import { EMPTY, map, mergeMap, of, pipe, tap } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class CartEffects {
@@ -44,5 +45,29 @@ export class CartEffects {
     )
   );
 
-  constructor(private actions$: Actions, private cartService: CartService) {}
+  updateCart$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CartActions.updateCart),
+      mergeMap((payload) =>
+        this.cartService.updateCart(payload.cart).pipe(
+          map((result) => {
+            return CartActions.updateCartSuccess({ cart: result });
+          })
+        )
+      ),
+      catchError((error) => {
+        return of(
+          CartActions.createCartFailure({
+            message: 'Sorry, your proccess can not be successfull,try again',
+          })
+        );
+      })
+    )
+  );
+
+  constructor(
+    private actions$: Actions,
+    private cartService: CartService,
+    private router: Router
+  ) {}
 }

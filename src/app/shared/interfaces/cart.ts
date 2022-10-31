@@ -41,3 +41,15 @@ export interface ProductDescription {
   description: string;
   promotion: number;
 }
+export interface UpdateProductReq {
+  data: {
+    items: PayloadUpdateProduct;
+  };
+}
+
+export interface PayloadUpdateProduct {
+  id: number;
+  quantity: number;
+  product_variant_id: number;
+  _destroy: boolean;
+}

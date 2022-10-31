@@ -9,7 +9,7 @@
     <input type="number" #qty [value]="quantity" (change)="emitNewPrice(qty)" />
   </div>
 
-  <img class="imgDefault" src="assets/img/chocolate.jpg" />
+  <img class="imgDefault" src="assets/img/logo-shop.jpg" />
   <div>
     Price per product:
     {{ product.price * quantity | currency: "USD":"symbol-narrow" }}

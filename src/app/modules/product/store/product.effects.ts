@@ -121,15 +121,12 @@ export class ProductEffects {
     )
   );
 
-  // falta load likes by user
-
   loadLikeByUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ProductAction.loadLikesByUser),
       mergeMap((result) =>
         this.productService.getLikesByUser(result.id).pipe(
           map((result) => {
-            console.log('result:', result);
             return ProductAction.loadLikesByUserSuccess({
               productsWithLike: result,
             });

@@ -42,5 +42,12 @@ export const productReducer = createReducer(
       ...state,
       messageError: action.message,
     };
+  }),
+
+  on(CartActions.updateCartSuccess, (state, action): CartState => {
+    return {
+      ...state,
+      cart: action.cart,
+    };
   })
 );

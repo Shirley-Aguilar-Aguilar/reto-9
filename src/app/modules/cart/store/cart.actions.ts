@@ -1,5 +1,9 @@
 import { createAction, props } from '@ngrx/store';
-import { Cart, payloadCreateCart } from 'src/app/shared/interfaces/cart';
+import {
+  Cart,
+  payloadCreateCart,
+  UpdateProductReq,
+} from 'src/app/shared/interfaces/cart';
 
 export const deletecart = createAction('[Cart Page] Delete Card');
 
@@ -11,11 +15,28 @@ export const createCart = createAction(
 );
 
 export const createCartSuccess = createAction(
-  '[Cart Page] Create Success',
+  '[Cart Page] Create Card Success',
   props<{ cart: Cart }>()
 );
 
 export const createCartFailure = createAction(
-  '[Cart Page] Create Failure',
+  '[Cart Page] Create Card Failure',
   props<{ message: string }>()
+);
+
+export const updateCart = createAction(
+  '[Cart Page] Update Card',
+  props<{ cart: UpdateProductReq }>()
+);
+
+export const updateCartSuccess = createAction(
+  '[Cart Page] Update Card Success',
+  props<{ cart: Cart }>()
+);
+
+export const getCart = createAction('[Cart Page] Get Card');
+
+export const getCartSuccess = createAction(
+  '[Cart Page] Get Card Success',
+  props<{ cart: Cart }>()
 );

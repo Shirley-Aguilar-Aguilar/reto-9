@@ -9,15 +9,28 @@
 <ng-template #showCart>
   <ng-container *ngIf="resultCorrectCreateCart$ | async as all">
     <div *ngIf="all.data as cart">
-      <h1>Cart</h1>
       <app-template-cart
         [productCart]="product"
         *ngFor="let product of cart.items"
         (changeQty)="changeQty($event)"
       ></app-template-cart>
+
       <label class="totalPrice"
-        ><strong>Total price:{{ getTotalPrice(cart.items) }}</strong></label
+        ><strong
+          >Total price:{{
+            getTotalPrice | currency: "USD":"symbol-narrow"
+          }}</strong
+        ></label
       >
+      <br />
+      <button
+        mat-raised-button
+        color="primary"
+        class="btnSave"
+        (click)="saveOrder()"
+      >
+        Save Order
+      </button>
     </div>
   </ng-container>
 </ng-template>

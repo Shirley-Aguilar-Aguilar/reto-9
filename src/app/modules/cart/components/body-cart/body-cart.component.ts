@@ -10,6 +10,11 @@ import {
 import { CartActions } from '../../store/action-types';
 import { Observable, tap } from 'rxjs';
 import * as cartSelector from '../../store/cart.selectors';
+import {
+  PayloadUpdateProduct,
+  ProductDescription,
+} from '../../../../shared/interfaces/cart';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-body-cart',
@@ -19,13 +24,12 @@ import * as cartSelector from '../../store/cart.selectors';
 export class BodyCartComponent implements OnInit {
   resultErrorCreateCart$: Observable<any>;
   resultCorrectCreateCart$: Observable<Cart | undefined>;
-  constructor(private store: Store<CartState>) {
-    this.store.dispatch(CartActions.deletecart());
-  }
+  productDescription: ProductDescription[];
+  priceTotal: number;
+
+  constructor(private store: Store<CartState>, private router: Router) {}
 
   ngOnInit(): void {
-    // eliminar cart en caso exista
-    // this.store.dispatch(CartActions.deletecart());
     this.getProductsAndQtyFromLocal();
   }
 
@@ -60,25 +64,47 @@ export class BodyCartComponent implements OnInit {
     this.resultErrorCreateCart$ = this.store.select(
       cartSelector.selectErrorMessage
     );
+    this.getCart();
+  }
 
+  getCart() {
     this.resultCorrectCreateCart$ = this.store.select(cartSelector.selectCard);
-
-    // crear la car
-
-    // actualizar la cart
-    console.log('formato de data a guardar ');
-    console.log(this.resultCorrectCreateCart$);
+    return this.resultCorrectCreateCart$;
   }
 
-  changeQty(n: number) {
-    console.log('nuevo numero', n);
-  }
-  getTotalPrice(data: any) {
-    console.log('data para calcular toda la data', data);
-    return data
-      .map((product: any) => {
-        return product.quantity * product.price;
+  changeQty(payload: PayloadUpdateProduct) {
+    const payloadUpdateProduct = {
+      data: {
+        items: payload,
+      },
+    };
+    this.store.dispatch(CartActions.updateCart({ cart: payloadUpdateProduct }));
+    this.store.select(cartSelector.selectCard).pipe(
+      tap((data) => {
+        console.log(data);
       })
-      .reduce((priceAnt: number, priceLast: number) => priceAnt + priceLast);
+    );
+  }
+
+  get getTotalPrice() {
+    this.resultCorrectCreateCart$.subscribe((data) => {
+      if (data) {
+        this.priceTotal = data?.data.items
+          .map((product) => product.quantity * parseInt(product.price))
+          .reduce(
+            (priceAnt: number, priceLast: number) => priceAnt + priceLast
+          );
+
+        return this.priceTotal;
+      }
+      return this.priceTotal;
+    });
+    return this.priceTotal;
+  }
+
+  saveOrder() {
+    this.router.navigate(['home']);
+    this.store.dispatch(CartActions.deletecart());
+    localStorage.removeItem('products');
   }
 }
