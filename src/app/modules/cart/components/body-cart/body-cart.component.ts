@@ -35,6 +35,7 @@ export class BodyCartComponent implements OnInit {
 
   getProductsAndQtyFromLocal() {
     const productsLocal = localStorage.getItem('products');
+    debugger;
     if (productsLocal) {
       const dataToSave = this.transformDataToSave(JSON.parse(productsLocal));
       this.createCart(dataToSave);

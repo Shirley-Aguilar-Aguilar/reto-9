@@ -28,6 +28,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
       retry(1),
       catchError((error: HttpErrorResponse) => {
         console.log('dentro de error interceptor');
+        console.log(error);
 
         let errorMessage = '';
         const jwtHelper: JwtHelperService = new JwtHelperService();
