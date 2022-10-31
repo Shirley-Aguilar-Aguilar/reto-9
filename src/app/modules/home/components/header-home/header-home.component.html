@@ -1,15 +1,15 @@
 <header>
   <mat-toolbar>
-    <h1>Tech Shop</h1>
+    <h1>The Online Shop</h1>
     <div class="action" *ngIf="user">
       <div class="profile" (click)="menuToggle(menu)">
-        {{initialsName}}
+        {{ initialsName }}
       </div>
 
       <div class="menu" #menu>
         <div class="card-info">
-          <h3>{{user.name}}</h3>
-          <p>{{user.email}}</p>
+          <h3>{{ user.name }}</h3>
+          <p>{{ user.email }}</p>
         </div>
         <ul>
           <li>
@@ -21,4 +21,3 @@
     </div>
   </mat-toolbar>
 </header>
-

@@ -14,10 +14,12 @@ export const cartFeatureKey = 'cart';
 
 export interface CartState {
   cart: Cart | undefined;
+  messageError: string;
 }
 
 export const initialProductsState: CartState = {
   cart: undefined,
+  messageError: '',
 };
 
 export const productReducer = createReducer(
@@ -32,6 +34,13 @@ export const productReducer = createReducer(
     return {
       ...state,
       cart: action.cart,
+    };
+  }),
+
+  on(CartActions.createCartFailure, (state, action): CartState => {
+    return {
+      ...state,
+      messageError: action.message,
     };
   })
 );

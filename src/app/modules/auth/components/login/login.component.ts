@@ -20,8 +20,8 @@ import { AuthActions } from '../../store/action-types';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  email = "trainee4@example.com";
-  password = "Trainee$4";
+  email = 'trainee4@example.com';
+  password = 'Trainee$4';
   hide = true;
   form: FormGroup;
   loading: boolean = false;
@@ -73,29 +73,28 @@ export class LoginComponent {
     localStorage.setItem('token', response);
   }
 
-   login(user: UserLogin): void {
-
-    this.authService.login(user)
-    .pipe(
-      tap(user => {
-        console.log(user);
-       this.store.dispatch(AuthActions.login({user}))
-      })
-    )
-    .subscribe({
-      next: (response) => {
-        this.error = '';
-        console.log(response)
-        this.storeToken(response.data.token);
-        this.router.navigate(['home']);
-        this.loading = false;
-      },
-      error: (error) => {
-        console.log(error);
-        this.error = error;
-        this.loading = false;
-      },
-    });
+  login(user: UserLogin): void {
+    this.authService
+      .login(user)
+      .pipe(
+        tap((user) => {
+          console.log(user);
+          this.store.dispatch(AuthActions.login({ user }));
+        })
+      )
+      .subscribe({
+        next: (response) => {
+          this.error = '';
+          this.storeToken(response.data.token);
+          this.router.navigate(['home']);
+          this.loading = false;
+        },
+        error: (error) => {
+          console.log(error);
+          this.error = error;
+          this.loading = false;
+        },
+      });
   }
 
   submit(): void {
@@ -104,8 +103,8 @@ export class LoginComponent {
     if (this.form.valid) {
       const data = {
         data: this.form.value,
-      }
-     this.login(data);
+      };
+      this.login(data);
     }
   }
 }

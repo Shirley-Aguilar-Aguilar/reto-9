@@ -4,16 +4,12 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ErrorMessageComponent } from './error-message/error-message.component';
 
-@NgModule({
-  declarations: [
-    ErrorMessageComponent
-  ],
-  imports: [
-    CommonModule,
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-    ReactiveFormsModule,
-  ],
+@NgModule({
+  declarations: [ErrorMessageComponent],
+  imports: [CommonModule, ReactiveFormsModule, MatSnackBarModule],
   providers: [],
-  exports: [ErrorMessageComponent]
+  exports: [ErrorMessageComponent],
 })
 export class SharedModule {}

@@ -13,6 +13,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { SharedModule } from 'src/app/shared/module/shared.module';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [BodyProductComponent, TemplateProductComponent],
@@ -26,6 +28,8 @@ import { MatInputModule } from '@angular/material/input';
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
+    MatTooltipModule,
+    SharedModule,
 
     StoreModule.forFeature(
       fromProduct.productFeatureKey,

@@ -12,9 +12,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { SharedModule } from 'src/app/shared/module/shared.module';
+import { TemplateCartComponent } from './components/template-cart/template-cart.component';
 
 @NgModule({
-  declarations: [BodyCartComponent],
+  declarations: [BodyCartComponent, TemplateCartComponent],
   imports: [
     CommonModule,
     CartRoutingModule,
@@ -23,6 +25,7 @@ import { MatInputModule } from '@angular/material/input';
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
+    SharedModule,
 
     StoreModule.forFeature(
       fromCart.cartFeatureKey,

@@ -1,12 +1,15 @@
 /* eslint-disable @ngrx/no-typed-global-store */
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { CartState } from '../../store/reducers/index';
 import {
+  Cart,
   payloadCreateCart,
   ProductLocal,
 } from 'src/app/shared/interfaces/cart';
 import { CartActions } from '../../store/action-types';
+import { Observable, tap } from 'rxjs';
+import * as cartSelector from '../../store/cart.selectors';
 
 @Component({
   selector: 'app-body-cart',
@@ -14,10 +17,15 @@ import { CartActions } from '../../store/action-types';
   styleUrls: ['./body-cart.component.scss'],
 })
 export class BodyCartComponent implements OnInit {
-  constructor(private store: Store<CartState>) {}
+  resultErrorCreateCart$: Observable<any>;
+  resultCorrectCreateCart$: Observable<Cart | undefined>;
+  constructor(private store: Store<CartState>) {
+    this.store.dispatch(CartActions.deletecart());
+  }
 
   ngOnInit(): void {
-    this.store.dispatch(CartActions.deletecart());
+    // eliminar cart en caso exista
+    // this.store.dispatch(CartActions.deletecart());
     this.getProductsAndQtyFromLocal();
   }
 
@@ -46,14 +54,31 @@ export class BodyCartComponent implements OnInit {
   }
 
   createCart(data: payloadCreateCart) {
-    // eliminar cart existente
     console.log(data);
     this.store.dispatch(CartActions.createCart({ cart: data }));
+
+    this.resultErrorCreateCart$ = this.store.select(
+      cartSelector.selectErrorMessage
+    );
+
+    this.resultCorrectCreateCart$ = this.store.select(cartSelector.selectCard);
 
     // crear la car
 
     // actualizar la cart
     console.log('formato de data a guardar ');
-    console.log(data);
+    console.log(this.resultCorrectCreateCart$);
+  }
+
+  changeQty(n: number) {
+    console.log('nuevo numero', n);
+  }
+  getTotalPrice(data: any) {
+    console.log('data para calcular toda la data', data);
+    return data
+      .map((product: any) => {
+        return product.quantity * product.price;
+      })
+      .reduce((priceAnt: number, priceLast: number) => priceAnt + priceLast);
   }
 }

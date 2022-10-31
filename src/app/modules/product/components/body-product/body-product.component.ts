@@ -10,7 +10,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../../reducers/index';
 import { ProductAction } from '../../store/product-action-types';
 import * as productSelector from '../../store/product.selectors';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-body-product',
@@ -27,10 +28,12 @@ export class BodyProductComponent implements OnInit {
   ]);
   categorySelected: Category;
   productosSearch: Product[];
+  error: string;
 
   constructor(
     private product: ProductService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -118,5 +121,15 @@ export class BodyProductComponent implements OnInit {
         idCategory: this.categorySelected.slug,
       })
     );
+  }
+
+  validateNavigation() {
+    this.error = '';
+    const localProducts = localStorage.getItem('products');
+    if (localProducts) {
+      this.router.navigate(['home/cart']);
+    } else {
+      this.error = 'Shopping cart is empty';
+    }
   }
 }

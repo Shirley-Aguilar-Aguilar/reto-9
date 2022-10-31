@@ -1,0 +1,27 @@
+@import "_colors";
+
+.containerPerProduct {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0;
+  border-bottom: 1px solid #0000005c;
+  div {
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+    input {
+      border-radius: 4px;
+      border: 1.5px solid $colorPurple;
+      font-size: medium;
+      width: 100px;
+    }
+  }
+}
+
+.imgDefault {
+  height: 100px;
+  border-radius: 50px;
+}
+@media (min-width: 1000px) {
+}

@@ -11,6 +11,11 @@ export const createCart = createAction(
 );
 
 export const createCartSuccess = createAction(
-  '[Cart Page] Create success',
+  '[Cart Page] Create Success',
   props<{ cart: Cart }>()
+);
+
+export const createCartFailure = createAction(
+  '[Cart Page] Create Failure',
+  props<{ message: string }>()
 );

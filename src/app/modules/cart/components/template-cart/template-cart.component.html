@@ -1,0 +1,17 @@
+<div class="containerPerProduct">
+  <h3>{{ product.name }}</h3>
+  <div>
+    <label><strong>Price unit:</strong> </label>
+    <p>{{ product.price | currency: "USD":"symbol-narrow" }}</p>
+  </div>
+  <div>
+    <label><strong>Quantity:</strong></label>
+    <input type="number" #qty [value]="quantity" (change)="emitNewPrice(qty)" />
+  </div>
+
+  <img class="imgDefault" src="assets/img/chocolate.jpg" />
+  <div>
+    Price per product:
+    {{ product.price * quantity | currency: "USD":"symbol-narrow" }}
+  </div>
+</div>

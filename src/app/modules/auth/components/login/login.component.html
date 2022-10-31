@@ -2,12 +2,17 @@
   <app-error-message [errorMessage]="error"> </app-error-message>
 </ng-container>
 
-<h1>Tech Shop</h1>
+<h1>The Online Shop</h1>
 
 <form [formGroup]="form" (ngSubmit)="submit()">
   <mat-form-field appearance="outline">
     <mat-label>Enter your email</mat-label>
-    <input matInput placeholder="user@example.com" formControlName="email"   [ngModel] = "email"/>
+    <input
+      matInput
+      placeholder="user@example.com"
+      formControlName="email"
+      [ngModel]="email"
+    />
     <mat-error *ngIf="getControl('email').invalid">{{
       getErrorMessage()
     }}</mat-error>
@@ -20,7 +25,7 @@
       [type]="hide ? 'password' : 'text'"
       formControlName="password"
       autocomplete="on"
-      [ngModel] = "password"
+      [ngModel]="password"
     />
     <button
       type="button"
@@ -44,10 +49,8 @@
       Log In
     </button>
   </div>
-
 </form>
 
 <div class="containerTextMessage">
   <app-charging-message *ngIf="loading"></app-charging-message>
 </div>
-

@@ -35,8 +35,18 @@
     </button>
 
     <br />
-    <button mat-raised-button color="primary" (click)="saveProduct(newProduct)">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="saveProduct(newProduct)"
+      [disabled]="isDisabledAddProduct"
+      matTooltip="Only can add product once time, you can edit on shopping cart"
+    >
       Add cart
     </button>
   </ng-template>
 </div>
+
+<ng-container *ngIf="error">
+  <app-error-message [errorMessage]="error"> </app-error-message>
+</ng-container>

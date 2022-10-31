@@ -22,6 +22,8 @@ export class TemplateProductComponent implements OnInit {
   dislike = true;
   likesPerProduct$: Observable<Like>;
   countProduct = 0;
+  error: string;
+  isDisabledAddProduct = false;
 
   @Input() set product(value: Product) {
     this.newProduct = value;
@@ -99,20 +101,27 @@ export class TemplateProductComponent implements OnInit {
   }
 
   saveProduct(newProduct: Product) {
-    const storageProduct = localStorage.getItem('products');
-    let products;
-    if (!storageProduct) {
-      products = [];
+    this.isDisabledAddProduct = true;
+    if (newProduct.master.stock < this.countProduct) {
+      this.error = 'You can not add more than stock';
+      this.isDisabledAddProduct = false;
     } else {
-      products = JSON.parse(storageProduct);
+      this.error = '';
+      const storageProduct = localStorage.getItem('products');
+      let products;
+      if (!storageProduct) {
+        products = [];
+      } else {
+        products = JSON.parse(storageProduct);
+      }
+
+      const dataProducts = {
+        masterId: newProduct.master.id,
+        quantity: this.countProduct,
+      };
+
+      products.push(dataProducts);
+      localStorage.setItem('products', JSON.stringify(products));
     }
-
-    const dataProducts = {
-      masterId: newProduct.master.id,
-      quantity: this.countProduct,
-    };
-
-    products.push(dataProducts);
-    localStorage.setItem('products', JSON.stringify(products));
   }
 }

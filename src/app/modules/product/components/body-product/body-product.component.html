@@ -18,7 +18,7 @@
   <label for="search">Search products</label>
   <input name="search" type="text" [formControl]="textInput" />
 
-  <button [routerLink]="['cart']">
+  <button (click)="validateNavigation()">
     <img src="assets/img/logo-cart.jpg" />
   </button>
 </div>
@@ -28,3 +28,6 @@
   *ngFor="let product of products$ | async"
 >
 </app-template-product>
+<ng-container *ngIf="error">
+  <app-error-message [errorMessage]="error"> </app-error-message>
+</ng-container>
