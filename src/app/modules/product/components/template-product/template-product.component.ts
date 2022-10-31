@@ -24,6 +24,7 @@ export class TemplateProductComponent implements OnInit {
   countProduct = 0;
   error: string;
   isDisabledAddProduct = false;
+  likeByUser$: Observable<Like[]>;
 
   @Input() set product(value: Product) {
     this.newProduct = value;
@@ -34,28 +35,12 @@ export class TemplateProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.getIdUser();
-    this.getLikesOfUser();
+    this.likeByUser$ = this.store.select(productSelector.selectLikesByUser);
   }
 
   getIdUser() {
     let user = localStorage.getItem('user');
     return user ? JSON.parse(user).data.user.id : '';
-  }
-
-  getLikesOfUser() {
-    // this.likesPerProduct$ = this.store.select(productSelector.selectLikesByUser);
-    //this.likesPerProduct$.pipe();
-    /*     this.store.select(productSelector.selectLikesByUser).pipe(
-      map((result) => {
-        result.forEach((like) => {
-          if (like.product_id === this.newProduct.id) {
-            this.likesPerProduct$ = like;
-
-          }
-          return result;
-        });
-      })
-    ); */
   }
 
   getPayloadLike(idProduct: number, kind: string) {

@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../../reducers/index';
 import { ProductAction } from '../../store/product-action-types';
 import * as productSelector from '../../store/product.selectors';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,10 +23,7 @@ export class BodyProductComponent implements OnInit {
   likesPerProduct$: Observable<Like[]>;
   categories$: Observable<Category[]>;
 
-  textInput = new FormControl('', [
-    Validators.required,
-    Validators.minLength(4),
-  ]);
+  textInput = new FormControl('', [Validators.required]);
   categorySelected: Category;
   productosSearch: Product[];
   error: string;
@@ -46,6 +43,9 @@ export class BodyProductComponent implements OnInit {
         debounceTime(700),
         distinctUntilChanged(),
         switchMap((value) => {
+          if (!value) {
+            this.getProductsToShow();
+          }
           if (value) {
             return this.transformNameToSlug(value);
           } else {
@@ -55,22 +55,15 @@ export class BodyProductComponent implements OnInit {
       )
       .subscribe((product) => {
         console.log(product);
+        this.getProductsToShow();
         this.store.dispatch(
           ProductAction.searchProducts({ name: product.name })
         );
       });
 
-    // pendiente ------- likes by user
-
     this.store.dispatch(
       ProductAction.loadLikesByUser({ id: this.getIdUser() })
     );
-
-    /*     this.likesPerProduct$ = this.store.select(
-      productSelector.selectLikesByUser
-    ); */
-    console.log('aquiiii observable ojala tenga datos', this.likesPerProduct$);
-    // pendiennnteeeee--------
   }
 
   getCategories() {

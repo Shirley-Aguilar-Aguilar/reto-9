@@ -69,6 +69,11 @@ export const loadFilterProducts = createAction(
   props<{ idCategory: string }>()
 );
 
+export const loadProductsFilterSuccess = createAction(
+  '[Product Page] Load Products filter Success',
+  props<{ productsFilter: Product[] }>()
+);
+
 export const searchProducts = createAction(
   '[Product Page] Search Products',
   props<{ name: string }>()

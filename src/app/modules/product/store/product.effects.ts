@@ -95,13 +95,13 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(ProductAction.loadFilterProducts),
       mergeMap((result) =>
-        this.productService
-          .getFilterProductByCategory(result.idCategory)
-          .pipe(
-            map((products) =>
-              ProductAction.loadProductsSuccess({ products: products.data })
-            )
+        this.productService.getFilterProductByCategory(result.idCategory).pipe(
+          map((products) =>
+            ProductAction.loadProductsSuccess({
+              products: products.data,
+            })
           )
+        )
       )
     )
   );

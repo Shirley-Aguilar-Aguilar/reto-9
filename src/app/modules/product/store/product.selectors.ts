@@ -17,3 +17,8 @@ export const selectCategories = createSelector(
   selectProductState,
   (state) => state.categories
 );
+
+export const selectProductsFilter = createSelector(
+  selectProductState,
+  (state) => state.productsFilter
+);

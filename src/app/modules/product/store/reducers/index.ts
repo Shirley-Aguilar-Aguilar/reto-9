@@ -26,6 +26,7 @@ export interface ProductState {
   likes: Like;
   likesByUser: Like[];
   categories: Category[];
+  productsFilter: Product[];
 }
 
 export const initialProductsState: ProductState = {
@@ -38,6 +39,7 @@ export const initialProductsState: ProductState = {
   },
   likesByUser: [],
   categories: [],
+  productsFilter: [],
 };
 
 export const productReducer = createReducer(
@@ -70,6 +72,12 @@ export const productReducer = createReducer(
     return {
       ...state,
       likesByUser: action.productsWithLike,
+    };
+  }),
+  on(ProductAction.loadProductsFilterSuccess, (state, action): ProductState => {
+    return {
+      ...state,
+      productsFilter: action.productsFilter,
     };
   })
 );

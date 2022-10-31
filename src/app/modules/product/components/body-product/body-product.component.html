@@ -1,7 +1,7 @@
 <div class="containerSelectSearch">
   <ng-container *ngIf="true">
     <div class="containerFilter">
-      <label for="categorie">Categories</label>
+      <label for="categorie">Filter by categories</label>
       <select
         id="categorie"
         [(ngModel)]="categorySelected"
@@ -21,7 +21,7 @@
   </ng-container>
 
   <div class="containerFilter">
-    <label for="search">Search products</label>
+    <label for="search">Search products by name</label>
     <input name="search" type="text" [formControl]="textInput" />
   </div>
 

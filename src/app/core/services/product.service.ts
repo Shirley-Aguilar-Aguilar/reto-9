@@ -50,13 +50,15 @@ export class ProductService {
     return this.http.get<Products>(
       this.host +
         '/products' +
-        `?include=category&filter[category_slug_eq]=${slug}`
+        `?include=category,master&filter[category_slug_eq]=${slug}`
     );
   }
 
   searchProductsByName(name: string): Observable<Products> {
     return this.http.get<Products>(
-      this.host + '/products' + `?include=category&filter[name_eq]=${name}`
+      this.host +
+        '/products' +
+        `?include=category,master&filter[name_eq]=${name}`
     );
   }
 }
