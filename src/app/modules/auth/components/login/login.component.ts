@@ -68,6 +68,7 @@ export class LoginComponent {
       .subscribe({
         next: (response) => {
           this.error = '';
+          localStorage.removeItem('products');
           this.storeToken(response.data.token);
           this.router.navigate(['home']);
         },

@@ -14,19 +14,23 @@ export class TemplateCartComponent {
     this.product = value;
     this.quantity = this.product.quantity;
   }
-  @Output() changeQty: EventEmitter<PayloadUpdateProduct> =
-    new EventEmitter<PayloadUpdateProduct>();
+  @Output() changeQty: EventEmitter<any> = new EventEmitter<any>();
   constructor() {}
 
   emitNewPrice(input: HTMLInputElement) {
     console.log(input.value);
     this.quantity = parseInt(input.value);
-    const obj = {
-      id: this.product.id,
-      quantity: this.quantity,
-      product_variant_id: this.product.product_variant_id,
-      _destroy: true,
-    };
+    const obj = [
+      {
+        _destroy: true,
+        id: this.product.id,
+      },
+      {
+        product_variant_id: this.product.product_variant_id,
+        quantity: this.quantity,
+      },
+    ];
+
     this.changeQty.emit(obj);
   }
 }

@@ -86,20 +86,27 @@ export class TemplateProductComponent implements OnInit {
   }
 
   saveProduct(newProduct: Product) {
+    this.error = '';
     this.isDisabledAddProduct = true;
+
+    if (this.countProduct == 0) {
+      this.error = 'Please, add at least one product';
+      this.isDisabledAddProduct = false;
+    }
     if (newProduct.master.stock < this.countProduct) {
       this.error = 'You can not add more than stock';
       this.isDisabledAddProduct = false;
     } else {
       this.error = '';
       const storageProduct = localStorage.getItem('products');
+      console.log('storageProduct', storageProduct);
       let products;
       if (!storageProduct) {
         products = [];
       } else {
         products = JSON.parse(storageProduct);
       }
-
+      console.log('storageProductproducts', products);
       const dataProducts = {
         masterId: newProduct.master.id,
         quantity: this.countProduct,

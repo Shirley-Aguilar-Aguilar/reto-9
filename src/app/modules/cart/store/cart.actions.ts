@@ -5,7 +5,7 @@ import {
   UpdateProductReq,
 } from 'src/app/shared/interfaces/cart';
 
-export const deletecart = createAction('[Cart Page] Delete Card');
+export const deleteCart = createAction('[Cart Page] Delete Card');
 
 export const deleteCartSuccess = createAction('[Cart Page] Delete success');
 

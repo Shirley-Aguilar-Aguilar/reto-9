@@ -43,13 +43,11 @@ export interface ProductDescription {
 }
 export interface UpdateProductReq {
   data: {
-    items: PayloadUpdateProduct;
+    items: [
+      { _destroy: boolean; id: number },
+      { quantity: number; product_variant_id: number }
+    ];
   };
 }
 
-export interface PayloadUpdateProduct {
-  id: number;
-  quantity: number;
-  product_variant_id: number;
-  _destroy: boolean;
-}
+export interface PayloadUpdateProduct {}

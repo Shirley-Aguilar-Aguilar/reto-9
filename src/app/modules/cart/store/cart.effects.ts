@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class CartEffects {
   deleteCart$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(CartActions.deletecart),
+      ofType(CartActions.deleteCart),
       mergeMap(() =>
         this.cartService
           .deleteCart()
@@ -24,7 +24,7 @@ export class CartEffects {
     )
   );
 
-  createcart$ = createEffect(() =>
+  createCart$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CartActions.createCart),
       mergeMap((payload) =>

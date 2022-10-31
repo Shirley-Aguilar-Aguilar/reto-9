@@ -27,6 +27,7 @@ export const productReducer = createReducer(
   on(CartActions.deleteCartSuccess, (state, action): CartState => {
     return {
       ...state,
+      cart: undefined,
     };
   }),
 

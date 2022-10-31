@@ -1,3 +1,4 @@
+/* eslint-disable @ngrx/no-store-subscription */
 /* eslint-disable @ngrx/no-typed-global-store */
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
@@ -15,6 +16,7 @@ import {
   ProductDescription,
 } from '../../../../shared/interfaces/cart';
 import { Router } from '@angular/router';
+import { UpdateProductReq } from '../../../../shared/interfaces/cart';
 
 @Component({
   selector: 'app-body-cart',
@@ -37,12 +39,15 @@ export class BodyCartComponent implements OnInit {
     const productsLocal = localStorage.getItem('products');
     debugger;
     if (productsLocal) {
+      console.log('data productsLocal save', productsLocal);
       const dataToSave = this.transformDataToSave(JSON.parse(productsLocal));
+      console.log('data to save', dataToSave);
       this.createCart(dataToSave);
     }
   }
 
   transformDataToSave(data: ProductLocal[]) {
+    console.log(data);
     const newData = data.map((product) => {
       return {
         product_variant_id: product.masterId,
@@ -59,9 +64,8 @@ export class BodyCartComponent implements OnInit {
   }
 
   createCart(data: payloadCreateCart) {
-    console.log(data);
+    //this.store.dispatch(CartActions.deleteCart());
     this.store.dispatch(CartActions.createCart({ cart: data }));
-
     this.resultErrorCreateCart$ = this.store.select(
       cartSelector.selectErrorMessage
     );
@@ -73,7 +77,7 @@ export class BodyCartComponent implements OnInit {
     return this.resultCorrectCreateCart$;
   }
 
-  changeQty(payload: PayloadUpdateProduct) {
+  changeQty(payload: any) {
     const payloadUpdateProduct = {
       data: {
         items: payload,
@@ -105,7 +109,7 @@ export class BodyCartComponent implements OnInit {
 
   saveOrder() {
     this.router.navigate(['home']);
-    this.store.dispatch(CartActions.deletecart());
+    this.store.dispatch(CartActions.deleteCart());
     localStorage.removeItem('products');
   }
 }
