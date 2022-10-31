@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BodyProductComponent } from './body-product/body-product.component';
+import { BodyProductComponent } from './components/body-product/body-product.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductService } from 'src/app/core/services/product.service';
 import { BodyProductRoutingModule } from './body-product-routing.module';
-import { TemplateProductComponent } from './template-product/template-product.component';
+import { TemplateProductComponent } from './components/template-product/template-product.component';
 import { StoreModule } from '@ngrx/store';
 import * as fromProduct from './store/reducers';
 import { EffectsModule } from '@ngrx/effects';

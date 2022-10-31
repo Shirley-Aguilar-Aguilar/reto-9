@@ -18,7 +18,9 @@
   <label for="search">Search products</label>
   <input name="search" type="text" [formControl]="textInput" />
 
-  <img src="assets/img/logo-cart.jpg" />
+  <button [routerLink]="['cart']">
+    <img src="assets/img/logo-cart.jpg" />
+  </button>
 </div>
 
 <app-template-product

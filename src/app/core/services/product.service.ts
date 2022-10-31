@@ -1,6 +1,6 @@
 /* eslint-disable @ngrx/no-typed-global-store */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import {
@@ -10,16 +10,12 @@ import {
   LikeBodyPost,
   LikeBodyResp,
 } from '../../shared/interfaces/product';
-import { AppState } from 'src/app/reducers';
-import { Store } from '@ngrx/store';
 
 @Injectable()
 export class ProductService {
   host: string = environment.urlApi;
 
-  constructor(private http: HttpClient, private store: Store<AppState>) {}
-
-  //headerDefault = new HttpHeaders({'Authorization': this.apiKey,});
+  constructor(private http: HttpClient) {}
 
   getCategories(): Observable<CategorytResp> {
     return this.http.get<CategorytResp>(this.host + '/categories');

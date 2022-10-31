@@ -7,9 +7,9 @@ import { ProductService } from 'src/app/core/services/product.service';
 import { Category, Like, Product } from 'src/app/shared/interfaces/product';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../reducers/index';
-import { ProductAction } from '../store/product-action-types';
-import * as productSelector from '../store/product.selectors';
+import { AppState } from '../../../../reducers/index';
+import { ProductAction } from '../../store/product-action-types';
+import * as productSelector from '../../store/product.selectors';
 import { switchMap, tap } from 'rxjs/operators';
 
 @Component({

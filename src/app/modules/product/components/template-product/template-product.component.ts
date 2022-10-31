@@ -3,13 +3,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../reducers/index';
+import { AppState } from '../../../../reducers/index';
 import { Product } from 'src/app/shared/interfaces/product';
-import { ProductAction } from '../store/product-action-types';
-import * as productSelector from '../store/product.selectors';
-import { ProductService } from '../../../core/services/product.service';
-import { Like } from '../../../shared/interfaces/product';
-import { ConditionalExpr } from '@angular/compiler';
+import { ProductAction } from '../../store/product-action-types';
+import * as productSelector from '../../store/product.selectors';
+import { ProductService } from '../../../../core/services/product.service';
+import { Like } from '../../../../shared/interfaces/product';
 
 @Component({
   selector: 'app-template-product',
@@ -18,14 +17,15 @@ import { ConditionalExpr } from '@angular/compiler';
 })
 export class TemplateProductComponent implements OnInit {
   newProduct: Product;
-  count = 0;
+  countLike = 0;
   dislikeInitial: boolean;
   dislike = true;
   likesPerProduct$: Observable<Like>;
+  countProduct = 0;
 
   @Input() set product(value: Product) {
     this.newProduct = value;
-    this.count = value.likes_up_count;
+    this.countLike = value.likes_up_count;
   }
 
   constructor(private store: Store<AppState>) {}
@@ -80,13 +80,13 @@ export class TemplateProductComponent implements OnInit {
     this.dislike = !this.dislike;
     if (this.dislike) {
       !this.dislike;
-      this.count--;
+      this.countLike--;
       const like = this.getPayloadLike(idProduct, 'down');
       this.store.dispatch(
         ProductAction.dislikeProduct({ bodyLikePerProduct: like })
       );
     } else {
-      this.count++;
+      this.countLike++;
       const like = this.getPayloadLike(idProduct, 'up');
       this.store.dispatch(
         ProductAction.likeProduct({ bodyLikePerProduct: like })
@@ -98,5 +98,21 @@ export class TemplateProductComponent implements OnInit {
     return this.dislike ? 'material-icons-outlined' : '';
   }
 
-  saveProduct(product: Product) {}
+  saveProduct(newProduct: Product) {
+    const storageProduct = localStorage.getItem('products');
+    let products;
+    if (!storageProduct) {
+      products = [];
+    } else {
+      products = JSON.parse(storageProduct);
+    }
+
+    const dataProducts = {
+      masterId: newProduct.master.id,
+      quantity: this.countProduct,
+    };
+
+    products.push(dataProducts);
+    localStorage.setItem('products', JSON.stringify(products));
+  }
 }

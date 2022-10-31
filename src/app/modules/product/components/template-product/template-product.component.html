@@ -1,0 +1,42 @@
+<div>
+  <h3>{{ newProduct.name }}</h3>
+  <p>Category: {{ newProduct.category.name }}</p>
+  <p>Stock:{{ newProduct.master.stock }}</p>
+  <p>Description: {{ newProduct.description }}</p>
+  <button (click)="addCount(newProduct.id)">
+    <mat-icon [fontSet]="isDislike()">{{ "thumb_up" }}</mat-icon>
+    {{ countLike }}
+  </button>
+
+  <div *ngIf="newProduct.master.stock > 0; then stock; else noStock"></div>
+  <ng-template #noStock>
+    <button [disabled]="true" mat-raised-button color="primary">-</button>
+    <label>No stock</label>
+    <button [disabled]="true" mat-raised-button color="primary">+</button>
+    <br />
+    <button [disabled]="true" mat-raised-button color="primary">AddCart</button>
+  </ng-template>
+
+  <ng-template #stock>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="countProduct === 0 ? 0 : (countProduct = countProduct - 1)"
+    >
+      -
+    </button>
+    <input [(ngModel)]="countProduct" />
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="countProduct = countProduct + 1"
+    >
+      +
+    </button>
+
+    <br />
+    <button mat-raised-button color="primary" (click)="saveProduct(newProduct)">
+      Add cart
+    </button>
+  </ng-template>
+</div>
