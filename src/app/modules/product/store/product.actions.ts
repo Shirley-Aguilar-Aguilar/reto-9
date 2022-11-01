@@ -8,7 +8,7 @@ import {
   Product,
   Products,
 } from 'src/app/shared/interfaces/product';
-import { IdsForLike, Likes } from '../../../shared/interfaces/product';
+import { IdsForLike, Likes, Page } from '../../../shared/interfaces/product';
 
 export const loadProducts = createAction('[Product Page] Load Products');
 
@@ -77,4 +77,14 @@ export const loadProductsFilterSuccess = createAction(
 export const searchProducts = createAction(
   '[Product Page] Search Products',
   props<{ name: string }>()
+);
+
+export const loadPageSize = createAction(
+  '[Product Page] Load Page ',
+  props<{ page: Page }>()
+);
+
+export const loadPageSizeSuccess = createAction(
+  '[Product Page] Load Page Success',
+  props<{ products: Product[] }>()
 );

@@ -1,7 +1,7 @@
 /* eslint-disable @ngrx/no-store-subscription */
 /* eslint-disable @ngrx/no-typed-global-store */
 import { Component, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { CartState } from '../../store/reducers/index';
 import {
   Cart,
@@ -33,7 +33,6 @@ export class BodyCartComponent implements OnInit {
 
   getProductsAndQtyFromLocal() {
     const productsLocal = localStorage.getItem('products');
-    // debugger;
     if (productsLocal) {
       console.log('data productsLocal save', productsLocal);
       const dataToSave = this.transformDataToSave(JSON.parse(productsLocal));
@@ -51,7 +50,6 @@ export class BodyCartComponent implements OnInit {
         quantity: product.quantity,
       };
     });
-
     return {
       data: {
         items: newData,

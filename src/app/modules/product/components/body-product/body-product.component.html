@@ -36,6 +36,15 @@
     *ngFor="let product of products$ | async"
   >
   </app-template-product>
+
+  <mat-paginator
+    [length]="length"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    aria-label="Select page"
+    (page)="page(pageEvent)"
+  >
+  </mat-paginator>
 </div>
 
 <ng-container *ngIf="error">

@@ -14,13 +14,12 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(ProductAction.loadProducts),
       concatMap(() =>
-        this.productService
-          .getProducts()
-          .pipe(
-            map((products) =>
-              ProductAction.loadProductsSuccess({ products: products.data })
-            )
+        this.productService.getProducts().pipe(
+          tap((products) => console.log(products)),
+          map((products) =>
+            ProductAction.loadProductsSuccess({ products: products.data })
           )
+        )
       )
     )
   );
@@ -48,7 +47,6 @@ export class ProductEffects {
       tap((ids) => console.log(ids)),
       mergeMap((ids) =>
         this.productService.getLikes(ids.idsPerProduct).pipe(
-          tap((ids) => console.log('likes de producto obtenido', ids)),
           map((likes) =>
             ProductAction.loadLikeProductSuccess({
               likesPerProduct: likes.data,
@@ -64,12 +62,13 @@ export class ProductEffects {
       ofType(ProductAction.likeProduct),
       tap((like) => console.log(like)),
       mergeMap((like) =>
-        this.productService.postLike(like.bodyLikePerProduct).pipe(
-          tap((result) => console.log('resultado post create like', result)),
-          map((like) =>
-            ProductAction.likeProductSuccess({ likesPerProductResp: like })
+        this.productService
+          .postLike(like.bodyLikePerProduct)
+          .pipe(
+            map((like) =>
+              ProductAction.likeProductSuccess({ likesPerProductResp: like })
+            )
           )
-        )
       )
     )
   );
@@ -80,7 +79,6 @@ export class ProductEffects {
       tap((dislike) => console.log(dislike)),
       mergeMap((dislike) =>
         this.productService.postLike(dislike.bodyLikePerProduct).pipe(
-          tap((result) => console.log('resultado post create like', result)),
           map((dislike) =>
             ProductAction.dislikeProductSuccess({
               likesPerProductResp: dislike,
@@ -129,6 +127,27 @@ export class ProductEffects {
           map((result) => {
             return ProductAction.loadLikesByUserSuccess({
               productsWithLike: result,
+            });
+          })
+        )
+      )
+    )
+  );
+
+  loadProductsByPageSize$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ProductAction.loadPageSize),
+      mergeMap((result) =>
+        this.productService.getProductsByPageSize(result.page).pipe(
+          tap((result) =>
+            localStorage.setItem(
+              'length-products',
+              JSON.stringify(result.meta.total)
+            )
+          ),
+          map((result) => {
+            return ProductAction.loadPageSizeSuccess({
+              products: result.data,
             });
           })
         )

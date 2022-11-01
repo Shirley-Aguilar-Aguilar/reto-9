@@ -1,27 +1,66 @@
-# Reto8
+# Challenge 9
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.2.
+# Index
 
-## Development server
+- ****[1. Project summary](#1-project-summary)
+- ****[2. How to run the project](#2-how-to-run-the-project)
+- [3. Deployment](#3-deployment)
+- [4. Boilerplate](#4-boilerplate)
+- ****[5. View of the final project](#5-views-of-the-final-project)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+# 1. **Project summary**
 
-## Code scaffolding
+1.Create the next items :
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Login page
+- Home page
+- Product Details Page
+- Cart page
+- Redux
+- Home page
+- Home page
+- Home page
 
-## Build
+## 2. How to run the project
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- First, use the command on the terminal:
 
-## Running unit tests
+      npm install
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Second, use the command in order to serve the app in the browser:
 
-## Running end-to-end tests
+      ng serve -o
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## 3. Deployment
 
-## Further help
+Link Heroku: 
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Link Firebase:
+
+Link Github pages:
+
+## 4. Boilerplate
+
+## 5. View of the final project
+
+### 5.1 View desktop
+
+![Untitled](Challenge%209%20c525a2a4af1d48fb86248112ec806205/Untitled.png)
+
+![Untitled](Challenge%209%20c525a2a4af1d48fb86248112ec806205/Untitled%201.png)
+
+![Untitled](Challenge%209%20c525a2a4af1d48fb86248112ec806205/Untitled%202.png)
+
+![Untitled](Challenge%209%20c525a2a4af1d48fb86248112ec806205/Untitled%203.png)
+
+### 5.2 View mobile
+
+![Untitled](Challenge%209%20c525a2a4af1d48fb86248112ec806205/Untitled%204.png)
+
+![Untitled](Challenge%209%20c525a2a4af1d48fb86248112ec806205/Untitled%205.png)
+
+![Untitled](Challenge%209%20c525a2a4af1d48fb86248112ec806205/Untitled%206.png)
+
+![Untitled](Challenge%209%20c525a2a4af1d48fb86248112ec806205/Untitled%207.png)
+
+![Untitled](Challenge%209%20c525a2a4af1d48fb86248112ec806205/Untitled%208.png)

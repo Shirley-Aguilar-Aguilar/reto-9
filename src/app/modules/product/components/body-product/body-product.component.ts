@@ -12,6 +12,7 @@ import { ProductAction } from '../../store/product-action-types';
 import * as productSelector from '../../store/product.selectors';
 import { map, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-body-product',
@@ -22,11 +23,15 @@ export class BodyProductComponent implements OnInit {
   products$: Observable<Product[]>;
   likesPerProduct$: Observable<Like[]>;
   categories$: Observable<Category[]>;
-
-  textInput = new FormControl('', [Validators.required]);
   categorySelected: Category;
   productosSearch: Product[];
   error: string;
+  pageEvent: PageEvent;
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+  length = 100;
+
+  textInput = new FormControl('', [Validators.required]);
 
   constructor(
     private product: ProductService,
@@ -116,5 +121,19 @@ export class BodyProductComponent implements OnInit {
     } else {
       this.error = 'Shopping cart is empty';
     }
+  }
+  page($event: any) {
+    console.log($event);
+    console.log('vvvvvvvvvvvvvvvvv');
+    console.log(this.pageSize); //productos--peticion
+    console.log(this.length); //cantidad total
+    const page = {
+      size: this.pageSize,
+      number: 0,
+    };
+    this.store.dispatch(ProductAction.loadPageSize({ page }));
+    const localLength = localStorage.getItem('length-products');
+    this.length = localLength ? JSON.parse(localLength) : 100;
+    this.getProductsToShow();
   }
 }

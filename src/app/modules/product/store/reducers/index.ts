@@ -79,5 +79,11 @@ export const productReducer = createReducer(
       ...state,
       productsFilter: action.productsFilter,
     };
+  }),
+  on(ProductAction.loadPageSizeSuccess, (state, action): ProductState => {
+    return {
+      ...state,
+      products: action.products,
+    };
   })
 );

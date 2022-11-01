@@ -10,6 +10,11 @@ export interface Category {
 
 export interface Products {
   data: Product[];
+  meta: {
+    current_page: number;
+    per_page: number;
+    total: number;
+  };
 }
 
 export interface Product {
@@ -56,4 +61,8 @@ export interface LikeBodyPost {
 
 export interface LikeBodyResp {
   data: Like;
+}
+export interface Page {
+  size: number;
+  number: number;
 }

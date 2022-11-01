@@ -9,6 +9,7 @@ import {
   Products,
   LikeBodyPost,
   LikeBodyResp,
+  Page,
 } from '../../shared/interfaces/product';
 
 @Injectable()
@@ -45,7 +46,7 @@ export class ProductService {
   postLike(data: LikeBodyPost): Observable<LikeBodyResp> {
     return this.http.post<LikeBodyResp>(this.host + '/likes', data);
   }
-  //modificar mas adelante-----
+
   getFilterProductByCategory(slug: string): Observable<Products> {
     return this.http.get<Products>(
       this.host +
@@ -59,6 +60,14 @@ export class ProductService {
       this.host +
         '/products' +
         `?include=category,master&filter[name_eq]=${name}`
+    );
+  }
+
+  getProductsByPageSize(page: Page): Observable<Products> {
+    return this.http.get<Products>(
+      this.host +
+        '/products' +
+        `?include=category,master&page[size]=${page.size}`
     );
   }
 }

@@ -17,6 +17,7 @@ import { SharedModule } from 'src/app/shared/module/shared.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ProductsResolver } from './store/product.resolver';
 import { CategoryResolver } from './store/category.resolver';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [BodyProductComponent, TemplateProductComponent],
@@ -32,6 +33,7 @@ import { CategoryResolver } from './store/category.resolver';
     MatFormFieldModule,
     MatTooltipModule,
     SharedModule,
+    MatPaginatorModule,
 
     StoreModule.forFeature(
       fromProduct.productFeatureKey,
