@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "deploy:firebase" : "ng build --configuration production && firebase deploy"
+    "deploy:firebase" : "ng build --configuration production && firebase deploy",
+    "deploy:gp": "ng build --configuration production --base-href='https://Shirley-Aguilar-Aguilar.github.io/reto-9/' && ngh --dir dist/reto9"
   },
   "private": true,
   "dependencies": {
