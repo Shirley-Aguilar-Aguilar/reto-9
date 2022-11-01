@@ -23,7 +23,7 @@ export class BodyCartComponent implements OnInit {
   resultErrorCreateCart$: Observable<any>;
   resultCorrectCreateCart$: Observable<Cart | undefined>;
   productDescription: ProductDescription[];
-  priceTotal: number;
+  priceTotal = 0;
 
   constructor(private store: Store<CartState>, private router: Router) {}
 
@@ -91,7 +91,14 @@ export class BodyCartComponent implements OnInit {
       console.log(data);
       if (data) {
         this.priceTotal = data?.data.items
-          .map((product) => product.quantity * parseInt(product.price))
+          .map((product) => {
+            console.log(
+              product.quantity,
+              parseFloat(product.price),
+              product.price
+            );
+            return product.quantity * parseFloat(product.price);
+          })
           .reduce(
             (priceAnt: number, priceLast: number) => priceLast + priceAnt
           );
@@ -115,5 +122,9 @@ export class BodyCartComponent implements OnInit {
 
   handlerError() {
     this.deleteAndNavigate();
+  }
+
+  changePriceGeneral(price: number) {
+    this.priceTotal = price;
   }
 }
