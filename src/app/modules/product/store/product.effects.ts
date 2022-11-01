@@ -134,7 +134,7 @@ export class ProductEffects {
     )
   );
 
-  loadProductsByPageSize$ = createEffect(() =>
+  /*   loadProductsByPageSize$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ProductAction.loadPageSize),
       mergeMap((result) =>
@@ -153,7 +153,7 @@ export class ProductEffects {
         )
       )
     )
-  );
+  ); */
 
   constructor(
     private actions$: Actions,

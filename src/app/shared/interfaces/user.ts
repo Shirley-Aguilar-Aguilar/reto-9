@@ -1,8 +1,8 @@
 export interface UserLogin {
-  data:{
+  data: {
     email: string;
     password: string;
-  }
+  };
 }
 
 export interface User {

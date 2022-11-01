@@ -122,7 +122,7 @@ export class BodyProductComponent implements OnInit {
       this.error = 'Shopping cart is empty';
     }
   }
-  page($event: any) {
+  /*   page($event: any) {
     console.log($event);
     console.log('vvvvvvvvvvvvvvvvv');
     console.log(this.pageSize); //productos--peticion
@@ -135,5 +135,5 @@ export class BodyProductComponent implements OnInit {
     const localLength = localStorage.getItem('length-products');
     this.length = localLength ? JSON.parse(localLength) : 100;
     this.getProductsToShow();
-  }
+  } */
 }

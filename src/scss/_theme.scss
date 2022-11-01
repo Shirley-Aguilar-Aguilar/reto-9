@@ -1,6 +1,5 @@
-@use '@angular/material' as mat;
-@use 'palette-theme' as p;
-
+@use "@angular/material" as mat;
+@use "palette-theme" as p;
 
 $custom-typography-config: mat.define-typography-config(
   $subheading-2: mat.define-typography-level(48px, 1, 500),
@@ -23,9 +22,8 @@ $my-theme: mat.define-light-theme(
       primary: $custom-primary,
       accent: $custom-accent,
       warn: $custom-warn,
-    )
+    ),
   )
 );
 
 @include mat.all-component-themes($my-theme);
-

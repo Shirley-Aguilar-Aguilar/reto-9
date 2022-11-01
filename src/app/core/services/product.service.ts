@@ -9,7 +9,6 @@ import {
   Products,
   LikeBodyPost,
   LikeBodyResp,
-  Page,
 } from '../../shared/interfaces/product';
 
 @Injectable()
@@ -63,11 +62,11 @@ export class ProductService {
     );
   }
 
-  getProductsByPageSize(page: Page): Observable<Products> {
+  /*   getProductsByPageSize(page: Page): Observable<Products> {
     return this.http.get<Products>(
       this.host +
         '/products' +
         `?include=category,master&page[size]=${page.size}`
     );
-  }
+  } */
 }

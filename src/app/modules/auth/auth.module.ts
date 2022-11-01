@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChargingMessageComponent } from './components/charging-message/charging-message.component';
 import { FirstPageComponent } from './components/first-page/first-page.component';
@@ -16,28 +16,20 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-
-import { StoreModule } from "@ngrx/store";
-import { AuthGuard } from '../../core/guards/auth.guard';
+import { StoreModule } from '@ngrx/store';
 import * as fromAuth from './store/reducers';
 import { AuthService } from '../../core/services/auth.service';
 import { authReducer } from './store/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './store/auth.effects';
 
-
 @NgModule({
-  declarations: [
-    ChargingMessageComponent,
-    FirstPageComponent,
-    LoginComponent
-  ],
+  declarations: [ChargingMessageComponent, FirstPageComponent, LoginComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule,
     SharedModule,
-
     MatFormFieldModule,
     MatIconModule,
     MatProgressSpinnerModule,
@@ -47,21 +39,9 @@ import { AuthEffects } from './store/auth.effects';
     MatButtonModule,
     MatSnackBarModule,
 
-
     StoreModule.forFeature(fromAuth.authFeatureKey, authReducer),
     EffectsModule.forFeature([AuthEffects]),
-
   ],
-  providers: [AuthService]
+  providers: [AuthService],
 })
-export class AuthModule {
-/*   static forRoot(): ModuleWithProviders<AuthModule> {
-    return {
-        ngModule: AuthModule,
-        providers: [
-        //  AuthService,
-            AuthGuard
-        ]
-    }
-} */
-}
+export class AuthModule {}

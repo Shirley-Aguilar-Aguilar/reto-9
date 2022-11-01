@@ -34,9 +34,7 @@ export class BodyCartComponent implements OnInit {
   getProductsAndQtyFromLocal() {
     const productsLocal = localStorage.getItem('products');
     if (productsLocal) {
-      console.log('data productsLocal save', productsLocal);
       const dataToSave = this.transformDataToSave(JSON.parse(productsLocal));
-      console.log('data to save', dataToSave);
       this.createCart(dataToSave);
     }
   }
@@ -120,9 +118,5 @@ export class BodyCartComponent implements OnInit {
 
   handlerError() {
     this.deleteAndNavigate();
-  }
-
-  changePriceGeneral(price: number) {
-    this.priceTotal = price;
   }
 }

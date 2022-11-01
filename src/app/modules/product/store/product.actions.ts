@@ -1,7 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import {
   Category,
-  CategorytResp,
   Like,
   LikeBodyPost,
   LikeBodyResp,

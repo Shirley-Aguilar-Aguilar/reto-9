@@ -8,7 +8,6 @@ import { UserLogin, User } from '../../shared/interfaces/user';
 export class AuthService {
   host: string = environment.urlApi;
   _auth: User;
-  _refreshToken: string;
 
   constructor(private http: HttpClient) {}
 

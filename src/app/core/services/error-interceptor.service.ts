@@ -7,7 +7,7 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry, switchMap } from 'rxjs/operators';
+import { catchError, retry } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from './auth.service';
 

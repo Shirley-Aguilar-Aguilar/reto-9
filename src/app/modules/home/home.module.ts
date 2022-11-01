@@ -8,22 +8,16 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ProductService } from 'src/app/core/services/product.service';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
-
 @NgModule({
-  declarations: [
-    ContentHomeComponent,
-    HeaderHomeComponent,
-  ],
+  declarations: [ContentHomeComponent, HeaderHomeComponent],
   imports: [
     CommonModule,
     AppRoutingHomeModule,
     ReactiveFormsModule,
 
-
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
   ],
-  providers: [ProductService]
+  providers: [ProductService],
 })
-export class HomeModule { }
+export class HomeModule {}

@@ -26,7 +26,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ReactiveFormsModule,
     BodyProductRoutingModule,
     FormsModule,
-
     MatIconModule,
     MatButtonModule,
     MatInputModule,

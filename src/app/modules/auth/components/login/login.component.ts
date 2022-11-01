@@ -1,12 +1,7 @@
 /* eslint-disable @ngrx/no-typed-global-store */
 // import * as fromActions from '../../store/auth.actions';
 import { Component } from '@angular/core';
-import {
-  Validators,
-  FormBuilder,
-  FormGroup,
-  AbstractControl,
-} from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { finalize, tap } from 'rxjs';
 import { AuthService } from '../../../../core/services/auth.service';
@@ -14,7 +9,6 @@ import { UserLogin } from '../../../../shared/interfaces/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../reducers/index';
 import { AuthActions } from '../../store/action-types';
-import { CartActions } from 'src/app/modules/cart/store/action-types';
 
 @Component({
   selector: 'app-login',
