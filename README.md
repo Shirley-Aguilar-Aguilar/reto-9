@@ -2,11 +2,11 @@
 
 # Index
 
-- ****[1. Project summary](#1-project-summary)
-- ****[2. How to run the project](#2-how-to-run-the-project)
+- [1. Project summary](#1-project-summary)
+- [2. How to run the project](#2-how-to-run-the-project)
 - [3. Deployment](#3-deployment)
 - [4. Boilerplate](#4-boilerplate)
-- ****[5. View of the final project](#5-views-of-the-final-project)
+- [5. View of the final project](#5-views-of-the-final-project)
 
 # 1. **Project summary**
 
@@ -33,13 +33,74 @@
 
 ## 3. Deployment
 
-Link Heroku: 
+Link Heroku:
 
 Link Firebase:
 
 Link Github pages:
 
 ## 4. Boilerplate
+
+```text
+...
+
+├── readme.md
+├── package.json
+├── src── app
+|         |
+|         |────core
+|         |       ├── guards
+|         |       ├── services
+|         |────modules
+|         |       ├── auth
+|         |       |       ├── components
+|         |       |       |       ├── charging-message
+|         |       |       |       ├── first-page
+|         |       |       |       ├── login
+|         |       |       ├── store
+|         |       |       ├── auth-routing
+|         |       |       ├── auth.module
+|         |       ├── home
+|         |       |       ├── components
+|         |       |       |       ├── content-home
+|         |       |       |       ├── header-home
+|         |       |       ├── app-routing-home
+|         |       |       ├── home.module
+|         |       ├── cart
+|         |       |       ├── components
+|         |       |       |       ├── body-cart
+|         |       |       |       ├── template-cart
+|         |       |       ├── store
+|         |       |       ├── cart-routing-home
+|         |       |       ├── cart.module
+|         |       ├── product
+|         |       |       ├── components
+|         |       |       |       ├── body-product
+|         |       |       |       ├── template-product
+|         |       |       ├── store
+|         |       |       ├── body-product-routing-home
+|         |       |       ├── product.module
+|         ├── shared
+|         |       ├── interfaces
+|         |       |    ├── product.ts
+|         |       |    ├── user.ts
+|         |       |    ├── cart.ts
+|         |       ├── module
+|         |       |    ├── error-message
+|         |       |    ├── shared.module.ts
+|         |       ├── validators
+|         |       |    ├── confirm-password
+|         |
+|         |
+|
+├── main.ts
+├── index.html
+├── styles.scss
+├      ──├_theme.scss
+├── scss ---colorfull variables and code mixin
+
+...
+```
 
 ## 5. View of the final project
 
