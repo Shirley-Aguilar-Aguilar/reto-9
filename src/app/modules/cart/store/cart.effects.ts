@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { CartService } from '../../../core/services/cart.service';
 import { CartActions } from './action-types';
-import { EMPTY, map, mergeMap, of, pipe, tap } from 'rxjs';
+import { map, mergeMap, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -18,11 +18,7 @@ export class CartEffects {
         this.cartService
           .deleteCart()
           .pipe(map(() => CartActions.deleteCartSuccess()))
-      ),
-      catchError((error) => {
-        console.log('There is not car in proccess');
-        return EMPTY;
-      })
+      )
     )
   );
 

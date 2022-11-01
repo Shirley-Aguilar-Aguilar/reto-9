@@ -20,7 +20,6 @@ export class TemplateCartComponent {
   constructor() {}
 
   emitNewPrice(input: HTMLInputElement) {
-    console.log(input.value);
     this.quantity = parseInt(input.value);
     const obj = [
       {

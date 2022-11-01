@@ -59,7 +59,6 @@ export class BodyProductComponent implements OnInit {
         })
       )
       .subscribe((product) => {
-        console.log(product);
         this.getProductsToShow();
         this.store.dispatch(
           ProductAction.searchProducts({ name: product.name })
@@ -122,18 +121,4 @@ export class BodyProductComponent implements OnInit {
       this.error = 'Shopping cart is empty';
     }
   }
-  /*   page($event: any) {
-    console.log($event);
-    console.log('vvvvvvvvvvvvvvvvv');
-    console.log(this.pageSize); //productos--peticion
-    console.log(this.length); //cantidad total
-    const page = {
-      size: this.pageSize,
-      number: 0,
-    };
-    this.store.dispatch(ProductAction.loadPageSize({ page }));
-    const localLength = localStorage.getItem('length-products');
-    this.length = localLength ? JSON.parse(localLength) : 100;
-    this.getProductsToShow();
-  } */
 }

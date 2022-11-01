@@ -27,9 +27,6 @@ export class ErrorInterceptorService implements HttpInterceptor {
     return next.handle(reqClone).pipe(
       retry(1),
       catchError((error: HttpErrorResponse) => {
-        console.log('dentro de error interceptor');
-        console.log(error);
-
         let errorMessage = '';
         const jwtHelper: JwtHelperService = new JwtHelperService();
         const token = localStorage.getItem('token');

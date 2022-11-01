@@ -7,39 +7,30 @@ import {
   createReducer,
   createSelector,
   MetaReducer,
-  on
+  on,
 } from '@ngrx/store';
 import { AuthActions } from '../action-types';
 
 export const authFeatureKey = 'auth';
 
 export interface AuthState {
-  user: (User | undefined),
-
+  user: User | undefined;
 }
 export const initialAuthState: AuthState = {
-  user:undefined
-}
-
+  user: undefined,
+};
 
 export const authReducer = createReducer(
   initialAuthState,
   on(AuthActions.login, (state, action): AuthState => {
-    console.log("calling login reducer")
     return {
-      user: action.user
-    }
+      user: action.user,
+    };
   }),
 
-  on(AuthActions.logout, (state, action):AuthState => {
+  on(AuthActions.logout, (state, action): AuthState => {
     return {
-      user: undefined
-    }
+      user: undefined,
+    };
   })
-
-
-)
-
-
-
-
+);

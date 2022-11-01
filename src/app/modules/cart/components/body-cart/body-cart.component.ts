@@ -40,7 +40,6 @@ export class BodyCartComponent implements OnInit {
   }
 
   transformDataToSave(data: ProductLocal[]) {
-    console.log(data);
     const newData = data.map((product) => {
       return {
         product_variant_id: product.masterId,
@@ -75,24 +74,13 @@ export class BodyCartComponent implements OnInit {
       },
     };
     this.store.dispatch(CartActions.updateCart({ cart: payloadUpdateProduct }));
-    this.store.select(cartSelector.selectCard).pipe(
-      tap((data) => {
-        console.log(data);
-      })
-    );
   }
 
   get getTotalPrice() {
     this.resultCorrectCreateCart$.subscribe((data) => {
-      console.log(data);
       if (data) {
         this.priceTotal = data?.data.items
           .map((product) => {
-            console.log(
-              product.quantity,
-              parseFloat(product.price),
-              product.price
-            );
             return product.quantity * parseFloat(product.price);
           })
           .reduce(

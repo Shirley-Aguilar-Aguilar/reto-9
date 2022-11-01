@@ -1,13 +1,12 @@
 /* eslint-disable @ngrx/no-typed-global-store */
 
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../reducers/index';
 import { Product } from 'src/app/shared/interfaces/product';
 import { ProductAction } from '../../store/product-action-types';
 import * as productSelector from '../../store/product.selectors';
-import { ProductService } from '../../../../core/services/product.service';
 import { Like } from '../../../../shared/interfaces/product';
 
 @Component({
@@ -97,14 +96,13 @@ export class TemplateProductComponent implements OnInit {
     } else {
       this.error = '';
       const storageProduct = localStorage.getItem('products');
-      console.log('storageProduct', storageProduct);
       let products;
       if (!storageProduct) {
         products = [];
       } else {
         products = JSON.parse(storageProduct);
       }
-      console.log('storageProductproducts', products);
+
       const dataProducts = {
         masterId: newProduct.master.id,
         quantity: this.countProduct,

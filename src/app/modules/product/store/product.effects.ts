@@ -1,12 +1,10 @@
 /* eslint-disable @ngrx/prefer-effect-callback-in-block-statement */
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY, map, mergeMap, pipe, tap } from 'rxjs';
-import { Router } from '@angular/router';
+import { map, mergeMap, tap } from 'rxjs';
 import { ProductAction } from './product-action-types';
 import { ProductService } from '../../../core/services/product.service';
-import { catchError, concatMap } from 'rxjs/operators';
-import { loadLikesProduct } from './product.actions';
+import { concatMap } from 'rxjs/operators';
 
 @Injectable()
 export class ProductEffects {
@@ -14,12 +12,13 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(ProductAction.loadProducts),
       concatMap(() =>
-        this.productService.getProducts().pipe(
-          tap((products) => console.log(products)),
-          map((products) =>
-            ProductAction.loadProductsSuccess({ products: products.data })
+        this.productService
+          .getProducts()
+          .pipe(
+            map((products) =>
+              ProductAction.loadProductsSuccess({ products: products.data })
+            )
           )
-        )
       )
     )
   );
@@ -28,15 +27,13 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(ProductAction.loadCategories),
       concatMap(() =>
-        this.productService.getCategories().pipe(
-          map((category) =>
-            ProductAction.loadCategoriesSuccess({ categories: category.data })
-          ),
-          catchError((error) => {
-            console.log(error);
-            return EMPTY;
-          })
-        )
+        this.productService
+          .getCategories()
+          .pipe(
+            map((category) =>
+              ProductAction.loadCategoriesSuccess({ categories: category.data })
+            )
+          )
       )
     )
   );
@@ -44,7 +41,6 @@ export class ProductEffects {
   loadLikes$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ProductAction.loadLikesProduct),
-      tap((ids) => console.log(ids)),
       mergeMap((ids) =>
         this.productService.getLikes(ids.idsPerProduct).pipe(
           map((likes) =>
@@ -60,7 +56,6 @@ export class ProductEffects {
   addLike$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ProductAction.likeProduct),
-      tap((like) => console.log(like)),
       mergeMap((like) =>
         this.productService
           .postLike(like.bodyLikePerProduct)
@@ -76,7 +71,7 @@ export class ProductEffects {
   deleteLike$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ProductAction.dislikeProduct),
-      tap((dislike) => console.log(dislike)),
+
       mergeMap((dislike) =>
         this.productService.postLike(dislike.bodyLikePerProduct).pipe(
           map((dislike) =>
@@ -133,27 +128,6 @@ export class ProductEffects {
       )
     )
   );
-
-  /*   loadProductsByPageSize$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(ProductAction.loadPageSize),
-      mergeMap((result) =>
-        this.productService.getProductsByPageSize(result.page).pipe(
-          tap((result) =>
-            localStorage.setItem(
-              'length-products',
-              JSON.stringify(result.meta.total)
-            )
-          ),
-          map((result) => {
-            return ProductAction.loadPageSizeSuccess({
-              products: result.data,
-            });
-          })
-        )
-      )
-    )
-  ); */
 
   constructor(
     private actions$: Actions,

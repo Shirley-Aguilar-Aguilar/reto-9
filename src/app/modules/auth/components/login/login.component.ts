@@ -16,8 +16,6 @@ import { AuthActions } from '../../store/action-types';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  emails = 'trainee4@example.com';
-  passwords = 'Trainee$4';
   hide = true;
   form: FormGroup;
   loading: boolean = false;
@@ -55,7 +53,6 @@ export class LoginComponent {
       .login(user)
       .pipe(
         tap((user) => {
-          console.log(user);
           this.store.dispatch(AuthActions.login({ user }));
         }),
         finalize(() => (this.loading = false))
@@ -68,7 +65,6 @@ export class LoginComponent {
           this.router.navigate(['home']);
         },
         error: (error) => {
-          console.log(error);
           this.error = error;
         },
       });
