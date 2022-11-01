@@ -34,10 +34,13 @@
 ## 3. Deployment
 
 Link Heroku:
+https://dreadful-hollow-71001.herokuapp.com
 
 Link Firebase:
+https://applaudo-reto-9-shirley.web.app
 
 Link Github pages:
+https://shirley-aguilar-aguilar.github.io/reto-9/
 
 ## 4. Boilerplate
 
